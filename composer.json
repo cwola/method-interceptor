@@ -1,0 +1,26 @@
+{
+    "name": "cwola/interceptor",
+    "description": "Intercept class method(Cwola library).",
+    "type": "library",
+    "keywords": [
+      "php",
+      "cwola",
+      "interceptor"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "r-jimbo"
+        }
+    ],
+    "homepage": "https://github.com/cwola/interceptor",
+    "require": {
+      "php": "^8.0",
+      "nikic/php-parser": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cwola\\Interceptor\\": "src/"
+        }
+    }
+}

@@ -1,0 +1,2784 @@
+array(7) {
+  [0]=>
+  object(PhpParser\Node\Stmt\Expression)#1190 (2) {
+    ["expr"]=>
+    object(PhpParser\Node\Expr\Include_)#1189 (3) {
+      ["expr"]=>
+      object(PhpParser\Node\Expr\BinaryOp\Concat)#1188 (3) {
+        ["left"]=>
+        object(PhpParser\Node\Expr\BinaryOp\Concat)#1186 (3) {
+          ["left"]=>
+          object(PhpParser\Node\Expr\BinaryOp\Concat)#1183 (3) {
+            ["left"]=>
+            object(PhpParser\Node\Expr\BinaryOp\Concat)#1181 (3) {
+              ["left"]=>
+              object(PhpParser\Node\Scalar\MagicConst\Dir)#1178 (1) {
+                ["attributes":protected]=>
+                array(2) {
+                  ["startLine"]=>
+                  int(3)
+                  ["endLine"]=>
+                  int(3)
+                }
+              }
+              ["right"]=>
+              object(PhpParser\Node\Expr\ConstFetch)#1180 (2) {
+                ["name"]=>
+                object(PhpParser\Node\Name\FullyQualified)#1380 (2) {
+                  ["parts"]=>
+                  array(1) {
+                    [0]=>
+                    string(19) "DIRECTORY_SEPARATOR"
+                  }
+                  ["attributes":protected]=>
+                  array(2) {
+                    ["startLine"]=>
+                    int(3)
+                    ["endLine"]=>
+                    int(3)
+                  }
+                }
+                ["attributes":protected]=>
+                array(2) {
+                  ["startLine"]=>
+                  int(3)
+                  ["endLine"]=>
+                  int(3)
+                }
+              }
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(3)
+                ["endLine"]=>
+                int(3)
+              }
+            }
+            ["right"]=>
+            object(PhpParser\Node\Scalar\String_)#1182 (2) {
+              ["value"]=>
+              string(6) "vendor"
+              ["attributes":protected]=>
+              array(4) {
+                ["startLine"]=>
+                int(3)
+                ["endLine"]=>
+                int(3)
+                ["kind"]=>
+                int(1)
+                ["rawValue"]=>
+                string(8) "'vendor'"
+              }
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(3)
+              ["endLine"]=>
+              int(3)
+            }
+          }
+          ["right"]=>
+          object(PhpParser\Node\Expr\ConstFetch)#1185 (2) {
+            ["name"]=>
+            object(PhpParser\Node\Name\FullyQualified)#1179 (2) {
+              ["parts"]=>
+              array(1) {
+                [0]=>
+                string(19) "DIRECTORY_SEPARATOR"
+              }
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(3)
+                ["endLine"]=>
+                int(3)
+              }
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(3)
+              ["endLine"]=>
+              int(3)
+            }
+          }
+          ["attributes":protected]=>
+          array(2) {
+            ["startLine"]=>
+            int(3)
+            ["endLine"]=>
+            int(3)
+          }
+        }
+        ["right"]=>
+        object(PhpParser\Node\Scalar\String_)#1187 (2) {
+          ["value"]=>
+          string(12) "autoload.php"
+          ["attributes":protected]=>
+          array(4) {
+            ["startLine"]=>
+            int(3)
+            ["endLine"]=>
+            int(3)
+            ["kind"]=>
+            int(1)
+            ["rawValue"]=>
+            string(14) "'autoload.php'"
+          }
+        }
+        ["attributes":protected]=>
+        array(2) {
+          ["startLine"]=>
+          int(3)
+          ["endLine"]=>
+          int(3)
+        }
+      }
+      ["type"]=>
+      int(3)
+      ["attributes":protected]=>
+      array(2) {
+        ["startLine"]=>
+        int(3)
+        ["endLine"]=>
+        int(3)
+      }
+    }
+    ["attributes":protected]=>
+    array(2) {
+      ["startLine"]=>
+      int(3)
+      ["endLine"]=>
+      int(3)
+    }
+  }
+  [1]=>
+  object(PhpParser\Node\Stmt\Use_)#1194 (3) {
+    ["type"]=>
+    int(1)
+    ["uses"]=>
+    array(1) {
+      [0]=>
+      object(PhpParser\Node\Stmt\UseUse)#1193 (4) {
+        ["type"]=>
+        int(0)
+        ["name"]=>
+        object(PhpParser\Node\Name)#1191 (2) {
+          ["parts"]=>
+          array(3) {
+            [0]=>
+            string(5) "Cwola"
+            [1]=>
+            string(8) "Overload"
+            [2]=>
+            string(12) "Overloadable"
+          }
+          ["attributes":protected]=>
+          array(2) {
+            ["startLine"]=>
+            int(5)
+            ["endLine"]=>
+            int(5)
+          }
+        }
+        ["alias"]=>
+        object(PhpParser\Node\Identifier)#1192 (2) {
+          ["name"]=>
+          string(1) "O"
+          ["attributes":protected]=>
+          array(2) {
+            ["startLine"]=>
+            int(5)
+            ["endLine"]=>
+            int(5)
+          }
+        }
+        ["attributes":protected]=>
+        array(2) {
+          ["startLine"]=>
+          int(5)
+          ["endLine"]=>
+          int(5)
+        }
+      }
+    }
+    ["attributes":protected]=>
+    array(2) {
+      ["startLine"]=>
+      int(5)
+      ["endLine"]=>
+      int(5)
+    }
+  }
+  [2]=>
+  object(PhpParser\Node\Stmt\Trait_)#1196 (5) {
+    ["name"]=>
+    object(PhpParser\Node\Identifier)#1195 (2) {
+      ["name"]=>
+      string(1) "T"
+      ["attributes":protected]=>
+      array(2) {
+        ["startLine"]=>
+        int(7)
+        ["endLine"]=>
+        int(7)
+      }
+    }
+    ["stmts"]=>
+    array(0) {
+    }
+    ["attrGroups"]=>
+    array(0) {
+    }
+    ["namespacedName"]=>
+    object(PhpParser\Node\Name)#1184 (2) {
+      ["parts"]=>
+      array(1) {
+        [0]=>
+        string(1) "T"
+      }
+      ["attributes":protected]=>
+      array(0) {
+      }
+    }
+    ["attributes":protected]=>
+    array(2) {
+      ["startLine"]=>
+      int(7)
+      ["endLine"]=>
+      int(7)
+    }
+  }
+  [3]=>
+  object(PhpParser\Node\Stmt\Class_)#1198 (8) {
+    ["flags"]=>
+    int(0)
+    ["extends"]=>
+    NULL
+    ["implements"]=>
+    array(0) {
+    }
+    ["name"]=>
+    object(PhpParser\Node\Identifier)#1197 (2) {
+      ["name"]=>
+      string(1) "S"
+      ["attributes":protected]=>
+      array(2) {
+        ["startLine"]=>
+        int(9)
+        ["endLine"]=>
+        int(9)
+      }
+    }
+    ["stmts"]=>
+    array(0) {
+    }
+    ["attrGroups"]=>
+    array(0) {
+    }
+    ["namespacedName"]=>
+    object(PhpParser\Node\Name)#1381 (2) {
+      ["parts"]=>
+      array(1) {
+        [0]=>
+        string(1) "S"
+      }
+      ["attributes":protected]=>
+      array(0) {
+      }
+    }
+    ["attributes":protected]=>
+    array(2) {
+      ["startLine"]=>
+      int(9)
+      ["endLine"]=>
+      int(9)
+    }
+  }
+  [4]=>
+  object(PhpParser\Node\Stmt\Interface_)#1200 (6) {
+    ["extends"]=>
+    array(0) {
+    }
+    ["name"]=>
+    object(PhpParser\Node\Identifier)#1199 (2) {
+      ["name"]=>
+      string(1) "F"
+      ["attributes":protected]=>
+      array(2) {
+        ["startLine"]=>
+        int(11)
+        ["endLine"]=>
+        int(11)
+      }
+    }
+    ["stmts"]=>
+    array(0) {
+    }
+    ["attrGroups"]=>
+    array(0) {
+    }
+    ["namespacedName"]=>
+    object(PhpParser\Node\Name)#1382 (2) {
+      ["parts"]=>
+      array(1) {
+        [0]=>
+        string(1) "F"
+      }
+      ["attributes":protected]=>
+      array(0) {
+      }
+    }
+    ["attributes":protected]=>
+    array(2) {
+      ["startLine"]=>
+      int(11)
+      ["endLine"]=>
+      int(11)
+    }
+  }
+  [5]=>
+  object(PhpParser\Node\Stmt\Interface_)#1202 (6) {
+    ["extends"]=>
+    array(0) {
+    }
+    ["name"]=>
+    object(PhpParser\Node\Identifier)#1201 (2) {
+      ["name"]=>
+      string(1) "P"
+      ["attributes":protected]=>
+      array(2) {
+        ["startLine"]=>
+        int(12)
+        ["endLine"]=>
+        int(12)
+      }
+    }
+    ["stmts"]=>
+    array(0) {
+    }
+    ["attrGroups"]=>
+    array(0) {
+    }
+    ["namespacedName"]=>
+    object(PhpParser\Node\Name)#1383 (2) {
+      ["parts"]=>
+      array(1) {
+        [0]=>
+        string(1) "P"
+      }
+      ["attributes":protected]=>
+      array(0) {
+      }
+    }
+    ["attributes":protected]=>
+    array(2) {
+      ["startLine"]=>
+      int(12)
+      ["endLine"]=>
+      int(12)
+    }
+  }
+  [6]=>
+  object(PhpParser\Node\Stmt\Class_)#1374 (8) {
+    ["flags"]=>
+    int(0)
+    ["extends"]=>
+    object(PhpParser\Node\Name\FullyQualified)#1384 (2) {
+      ["parts"]=>
+      array(1) {
+        [0]=>
+        string(1) "S"
+      }
+      ["attributes":protected]=>
+      array(2) {
+        ["startLine"]=>
+        int(15)
+        ["endLine"]=>
+        int(15)
+      }
+    }
+    ["implements"]=>
+    array(2) {
+      [0]=>
+      object(PhpParser\Node\Name\FullyQualified)#1207 (2) {
+        ["parts"]=>
+        array(1) {
+          [0]=>
+          string(1) "F"
+        }
+        ["attributes":protected]=>
+        array(2) {
+          ["startLine"]=>
+          int(15)
+          ["endLine"]=>
+          int(15)
+        }
+      }
+      [1]=>
+      object(PhpParser\Node\Name\FullyQualified)#1208 (2) {
+        ["parts"]=>
+        array(1) {
+          [0]=>
+          string(1) "P"
+        }
+        ["attributes":protected]=>
+        array(2) {
+          ["startLine"]=>
+          int(15)
+          ["endLine"]=>
+          int(15)
+        }
+      }
+    }
+    ["name"]=>
+    object(PhpParser\Node\Identifier)#1206 (2) {
+      ["name"]=>
+      string(4) "TEST"
+      ["attributes":protected]=>
+      array(2) {
+        ["startLine"]=>
+        int(15)
+        ["endLine"]=>
+        int(15)
+      }
+    }
+    ["stmts"]=>
+    array(10) {
+      [0]=>
+      object(PhpParser\Node\Stmt\TraitUse)#1211 (3) {
+        ["traits"]=>
+        array(1) {
+          [0]=>
+          object(PhpParser\Node\Name\FullyQualified)#1385 (2) {
+            ["parts"]=>
+            array(1) {
+              [0]=>
+              string(1) "T"
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(16)
+              ["endLine"]=>
+              int(16)
+            }
+          }
+        }
+        ["adaptations"]=>
+        array(0) {
+        }
+        ["attributes":protected]=>
+        array(2) {
+          ["startLine"]=>
+          int(16)
+          ["endLine"]=>
+          int(16)
+        }
+      }
+      [1]=>
+      object(PhpParser\Node\Stmt\ClassConst)#1215 (4) {
+        ["flags"]=>
+        int(1)
+        ["consts"]=>
+        array(1) {
+          [0]=>
+          object(PhpParser\Node\Const_)#1214 (4) {
+            ["name"]=>
+            object(PhpParser\Node\Identifier)#1212 (2) {
+              ["name"]=>
+              string(3) "VAR"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(18)
+                ["endLine"]=>
+                int(18)
+              }
+            }
+            ["value"]=>
+            object(PhpParser\Node\Scalar\String_)#1213 (2) {
+              ["value"]=>
+              string(0) ""
+              ["attributes":protected]=>
+              array(4) {
+                ["startLine"]=>
+                int(18)
+                ["endLine"]=>
+                int(18)
+                ["kind"]=>
+                int(1)
+                ["rawValue"]=>
+                string(2) "''"
+              }
+            }
+            ["namespacedName"]=>
+            NULL
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(18)
+              ["endLine"]=>
+              int(18)
+            }
+          }
+        }
+        ["attrGroups"]=>
+        array(0) {
+        }
+        ["attributes":protected]=>
+        array(2) {
+          ["startLine"]=>
+          int(18)
+          ["endLine"]=>
+          int(18)
+        }
+      }
+      [2]=>
+      object(PhpParser\Node\Stmt\Property)#1219 (5) {
+        ["flags"]=>
+        int(1)
+        ["props"]=>
+        array(1) {
+          [0]=>
+          object(PhpParser\Node\Stmt\PropertyProperty)#1218 (3) {
+            ["name"]=>
+            object(PhpParser\Node\VarLikeIdentifier)#1216 (2) {
+              ["name"]=>
+              string(3) "var"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(20)
+                ["endLine"]=>
+                int(20)
+              }
+            }
+            ["default"]=>
+            object(PhpParser\Node\Scalar\String_)#1217 (2) {
+              ["value"]=>
+              string(0) ""
+              ["attributes":protected]=>
+              array(4) {
+                ["startLine"]=>
+                int(20)
+                ["endLine"]=>
+                int(20)
+                ["kind"]=>
+                int(1)
+                ["rawValue"]=>
+                string(2) "''"
+              }
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(20)
+              ["endLine"]=>
+              int(20)
+            }
+          }
+        }
+        ["type"]=>
+        NULL
+        ["attrGroups"]=>
+        array(0) {
+        }
+        ["attributes":protected]=>
+        array(2) {
+          ["startLine"]=>
+          int(20)
+          ["endLine"]=>
+          int(20)
+        }
+      }
+      [3]=>
+      object(PhpParser\Node\Stmt\ClassMethod)#1221 (8) {
+        ["flags"]=>
+        int(1)
+        ["byRef"]=>
+        bool(false)
+        ["name"]=>
+        object(PhpParser\Node\Identifier)#1220 (2) {
+          ["name"]=>
+          string(4) "test"
+          ["attributes":protected]=>
+          array(2) {
+            ["startLine"]=>
+            int(22)
+            ["endLine"]=>
+            int(22)
+          }
+        }
+        ["params"]=>
+        array(0) {
+        }
+        ["returnType"]=>
+        object(PhpParser\Node\Identifier)#1222 (2) {
+          ["name"]=>
+          string(4) "void"
+          ["attributes":protected]=>
+          array(2) {
+            ["startLine"]=>
+            int(22)
+            ["endLine"]=>
+            int(22)
+          }
+        }
+        ["stmts"]=>
+        array(0) {
+        }
+        ["attrGroups"]=>
+        array(0) {
+        }
+        ["attributes":protected]=>
+        array(3) {
+          ["startLine"]=>
+          int(22)
+          ["endLine"]=>
+          int(23)
+          ["Cwola\Overload\Compiler\Visitor\MethodSignatureStamper"]=>
+          string(4) "void"
+        }
+      }
+      [4]=>
+      object(PhpParser\Node\Stmt\ClassMethod)#1227 (8) {
+        ["flags"]=>
+        int(1)
+        ["byRef"]=>
+        bool(false)
+        ["name"]=>
+        object(PhpParser\Node\Identifier)#1223 (2) {
+          ["name"]=>
+          string(4) "test"
+          ["attributes":protected]=>
+          array(2) {
+            ["startLine"]=>
+            int(24)
+            ["endLine"]=>
+            int(24)
+          }
+        }
+        ["params"]=>
+        array(1) {
+          [0]=>
+          object(PhpParser\Node\Param)#1226 (8) {
+            ["type"]=>
+            object(PhpParser\Node\Identifier)#1225 (2) {
+              ["name"]=>
+              string(6) "string"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(24)
+                ["endLine"]=>
+                int(24)
+              }
+            }
+            ["byRef"]=>
+            bool(false)
+            ["variadic"]=>
+            bool(false)
+            ["var"]=>
+            object(PhpParser\Node\Expr\Variable)#1224 (2) {
+              ["name"]=>
+              string(1) "a"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(24)
+                ["endLine"]=>
+                int(24)
+              }
+            }
+            ["default"]=>
+            NULL
+            ["flags"]=>
+            int(0)
+            ["attrGroups"]=>
+            array(0) {
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(24)
+              ["endLine"]=>
+              int(24)
+            }
+          }
+        }
+        ["returnType"]=>
+        object(PhpParser\Node\Identifier)#1228 (2) {
+          ["name"]=>
+          string(4) "void"
+          ["attributes":protected]=>
+          array(2) {
+            ["startLine"]=>
+            int(24)
+            ["endLine"]=>
+            int(24)
+          }
+        }
+        ["stmts"]=>
+        array(0) {
+        }
+        ["attrGroups"]=>
+        array(0) {
+        }
+        ["attributes":protected]=>
+        array(3) {
+          ["startLine"]=>
+          int(24)
+          ["endLine"]=>
+          int(25)
+          ["Cwola\Overload\Compiler\Visitor\MethodSignatureStamper"]=>
+          string(6) "string"
+        }
+      }
+      [5]=>
+      object(PhpParser\Node\Stmt\ClassMethod)#1233 (8) {
+        ["flags"]=>
+        int(1)
+        ["byRef"]=>
+        bool(false)
+        ["name"]=>
+        object(PhpParser\Node\Identifier)#1229 (2) {
+          ["name"]=>
+          string(4) "test"
+          ["attributes":protected]=>
+          array(2) {
+            ["startLine"]=>
+            int(26)
+            ["endLine"]=>
+            int(26)
+          }
+        }
+        ["params"]=>
+        array(1) {
+          [0]=>
+          object(PhpParser\Node\Param)#1232 (8) {
+            ["type"]=>
+            object(PhpParser\Node\Identifier)#1231 (2) {
+              ["name"]=>
+              string(3) "int"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(26)
+                ["endLine"]=>
+                int(26)
+              }
+            }
+            ["byRef"]=>
+            bool(false)
+            ["variadic"]=>
+            bool(false)
+            ["var"]=>
+            object(PhpParser\Node\Expr\Variable)#1230 (2) {
+              ["name"]=>
+              string(1) "b"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(26)
+                ["endLine"]=>
+                int(26)
+              }
+            }
+            ["default"]=>
+            NULL
+            ["flags"]=>
+            int(0)
+            ["attrGroups"]=>
+            array(0) {
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(26)
+              ["endLine"]=>
+              int(26)
+            }
+          }
+        }
+        ["returnType"]=>
+        object(PhpParser\Node\Identifier)#1234 (2) {
+          ["name"]=>
+          string(4) "void"
+          ["attributes":protected]=>
+          array(2) {
+            ["startLine"]=>
+            int(26)
+            ["endLine"]=>
+            int(26)
+          }
+        }
+        ["stmts"]=>
+        array(0) {
+        }
+        ["attrGroups"]=>
+        array(0) {
+        }
+        ["attributes":protected]=>
+        array(3) {
+          ["startLine"]=>
+          int(26)
+          ["endLine"]=>
+          int(27)
+          ["Cwola\Overload\Compiler\Visitor\MethodSignatureStamper"]=>
+          string(3) "int"
+        }
+      }
+      [6]=>
+      object(PhpParser\Node\Stmt\ClassMethod)#1244 (8) {
+        ["flags"]=>
+        int(1)
+        ["byRef"]=>
+        bool(false)
+        ["name"]=>
+        object(PhpParser\Node\Identifier)#1235 (2) {
+          ["name"]=>
+          string(4) "test"
+          ["attributes":protected]=>
+          array(2) {
+            ["startLine"]=>
+            int(28)
+            ["endLine"]=>
+            int(28)
+          }
+        }
+        ["params"]=>
+        array(2) {
+          [0]=>
+          object(PhpParser\Node\Param)#1238 (8) {
+            ["type"]=>
+            object(PhpParser\Node\Identifier)#1236 (2) {
+              ["name"]=>
+              string(5) "array"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(28)
+                ["endLine"]=>
+                int(28)
+              }
+            }
+            ["byRef"]=>
+            bool(false)
+            ["variadic"]=>
+            bool(false)
+            ["var"]=>
+            object(PhpParser\Node\Expr\Variable)#1237 (2) {
+              ["name"]=>
+              string(1) "c"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(28)
+                ["endLine"]=>
+                int(28)
+              }
+            }
+            ["default"]=>
+            NULL
+            ["flags"]=>
+            int(0)
+            ["attrGroups"]=>
+            array(0) {
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(28)
+              ["endLine"]=>
+              int(28)
+            }
+          }
+          [1]=>
+          object(PhpParser\Node\Param)#1243 (8) {
+            ["type"]=>
+            object(PhpParser\Node\UnionType)#1239 (2) {
+              ["types"]=>
+              array(2) {
+                [0]=>
+                object(PhpParser\Node\Identifier)#1240 (2) {
+                  ["name"]=>
+                  string(6) "string"
+                  ["attributes":protected]=>
+                  array(2) {
+                    ["startLine"]=>
+                    int(28)
+                    ["endLine"]=>
+                    int(28)
+                  }
+                }
+                [1]=>
+                object(PhpParser\Node\Identifier)#1241 (2) {
+                  ["name"]=>
+                  string(3) "int"
+                  ["attributes":protected]=>
+                  array(2) {
+                    ["startLine"]=>
+                    int(28)
+                    ["endLine"]=>
+                    int(28)
+                  }
+                }
+              }
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(28)
+                ["endLine"]=>
+                int(28)
+              }
+            }
+            ["byRef"]=>
+            bool(false)
+            ["variadic"]=>
+            bool(false)
+            ["var"]=>
+            object(PhpParser\Node\Expr\Variable)#1242 (2) {
+              ["name"]=>
+              string(1) "d"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(28)
+                ["endLine"]=>
+                int(28)
+              }
+            }
+            ["default"]=>
+            NULL
+            ["flags"]=>
+            int(0)
+            ["attrGroups"]=>
+            array(0) {
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(28)
+              ["endLine"]=>
+              int(28)
+            }
+          }
+        }
+        ["returnType"]=>
+        object(PhpParser\Node\Identifier)#1245 (2) {
+          ["name"]=>
+          string(4) "void"
+          ["attributes":protected]=>
+          array(2) {
+            ["startLine"]=>
+            int(28)
+            ["endLine"]=>
+            int(28)
+          }
+        }
+        ["stmts"]=>
+        array(0) {
+        }
+        ["attrGroups"]=>
+        array(0) {
+        }
+        ["attributes":protected]=>
+        array(3) {
+          ["startLine"]=>
+          int(28)
+          ["endLine"]=>
+          int(29)
+          ["Cwola\Overload\Compiler\Visitor\MethodSignatureStamper"]=>
+          string(17) "array, int|string"
+        }
+      }
+      [7]=>
+      object(PhpParser\Node\Stmt\ClassMethod)#1257 (8) {
+        ["flags"]=>
+        int(1)
+        ["byRef"]=>
+        bool(false)
+        ["name"]=>
+        object(PhpParser\Node\Identifier)#1246 (2) {
+          ["name"]=>
+          string(4) "test"
+          ["attributes":protected]=>
+          array(2) {
+            ["startLine"]=>
+            int(30)
+            ["endLine"]=>
+            int(30)
+          }
+        }
+        ["params"]=>
+        array(2) {
+          [0]=>
+          object(PhpParser\Node\Param)#1249 (8) {
+            ["type"]=>
+            object(PhpParser\Node\Identifier)#1247 (2) {
+              ["name"]=>
+              string(5) "array"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(30)
+                ["endLine"]=>
+                int(30)
+              }
+            }
+            ["byRef"]=>
+            bool(false)
+            ["variadic"]=>
+            bool(false)
+            ["var"]=>
+            object(PhpParser\Node\Expr\Variable)#1248 (2) {
+              ["name"]=>
+              string(1) "e"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(30)
+                ["endLine"]=>
+                int(30)
+              }
+            }
+            ["default"]=>
+            NULL
+            ["flags"]=>
+            int(0)
+            ["attrGroups"]=>
+            array(0) {
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(30)
+              ["endLine"]=>
+              int(30)
+            }
+          }
+          [1]=>
+          object(PhpParser\Node\Param)#1256 (8) {
+            ["type"]=>
+            object(PhpParser\Node\UnionType)#1253 (2) {
+              ["types"]=>
+              array(3) {
+                [0]=>
+                object(PhpParser\Node\Identifier)#1251 (2) {
+                  ["name"]=>
+                  string(6) "string"
+                  ["attributes":protected]=>
+                  array(2) {
+                    ["startLine"]=>
+                    int(30)
+                    ["endLine"]=>
+                    int(30)
+                  }
+                }
+                [1]=>
+                object(PhpParser\Node\Identifier)#1252 (2) {
+                  ["name"]=>
+                  string(3) "int"
+                  ["attributes":protected]=>
+                  array(2) {
+                    ["startLine"]=>
+                    int(30)
+                    ["endLine"]=>
+                    int(30)
+                  }
+                }
+                [2]=>
+                object(PhpParser\Node\Identifier)#1250 (2) {
+                  ["name"]=>
+                  string(5) "array"
+                  ["attributes":protected]=>
+                  array(2) {
+                    ["startLine"]=>
+                    int(30)
+                    ["endLine"]=>
+                    int(30)
+                  }
+                }
+              }
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(30)
+                ["endLine"]=>
+                int(30)
+              }
+            }
+            ["byRef"]=>
+            bool(false)
+            ["variadic"]=>
+            bool(false)
+            ["var"]=>
+            object(PhpParser\Node\Expr\Variable)#1254 (2) {
+              ["name"]=>
+              string(1) "f"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(30)
+                ["endLine"]=>
+                int(30)
+              }
+            }
+            ["default"]=>
+            object(PhpParser\Node\Scalar\String_)#1255 (2) {
+              ["value"]=>
+              string(1) "a"
+              ["attributes":protected]=>
+              array(4) {
+                ["startLine"]=>
+                int(30)
+                ["endLine"]=>
+                int(30)
+                ["kind"]=>
+                int(1)
+                ["rawValue"]=>
+                string(3) "'a'"
+              }
+            }
+            ["flags"]=>
+            int(0)
+            ["attrGroups"]=>
+            array(0) {
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(30)
+              ["endLine"]=>
+              int(30)
+            }
+          }
+        }
+        ["returnType"]=>
+        object(PhpParser\Node\Identifier)#1258 (2) {
+          ["name"]=>
+          string(4) "void"
+          ["attributes":protected]=>
+          array(2) {
+            ["startLine"]=>
+            int(30)
+            ["endLine"]=>
+            int(30)
+          }
+        }
+        ["stmts"]=>
+        array(0) {
+        }
+        ["attrGroups"]=>
+        array(0) {
+        }
+        ["attributes":protected]=>
+        array(3) {
+          ["startLine"]=>
+          int(30)
+          ["endLine"]=>
+          int(31)
+          ["Cwola\Overload\Compiler\Visitor\MethodSignatureStamper"]=>
+          string(23) "array, array|int|string"
+        }
+      }
+      [8]=>
+      object(PhpParser\Node\Stmt\ClassMethod)#1266 (8) {
+        ["flags"]=>
+        int(1)
+        ["byRef"]=>
+        bool(false)
+        ["name"]=>
+        object(PhpParser\Node\Identifier)#1259 (2) {
+          ["name"]=>
+          string(4) "test"
+          ["attributes":protected]=>
+          array(2) {
+            ["startLine"]=>
+            int(32)
+            ["endLine"]=>
+            int(32)
+          }
+        }
+        ["params"]=>
+        array(2) {
+          [0]=>
+          object(PhpParser\Node\Param)#1262 (8) {
+            ["type"]=>
+            object(PhpParser\Node\Identifier)#1260 (2) {
+              ["name"]=>
+              string(5) "array"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(32)
+                ["endLine"]=>
+                int(32)
+              }
+            }
+            ["byRef"]=>
+            bool(false)
+            ["variadic"]=>
+            bool(false)
+            ["var"]=>
+            object(PhpParser\Node\Expr\Variable)#1261 (2) {
+              ["name"]=>
+              string(1) "g"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(32)
+                ["endLine"]=>
+                int(32)
+              }
+            }
+            ["default"]=>
+            NULL
+            ["flags"]=>
+            int(0)
+            ["attrGroups"]=>
+            array(0) {
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(32)
+              ["endLine"]=>
+              int(32)
+            }
+          }
+          [1]=>
+          object(PhpParser\Node\Param)#1265 (8) {
+            ["type"]=>
+            object(PhpParser\Node\Identifier)#1264 (2) {
+              ["name"]=>
+              string(5) "mixed"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(32)
+                ["endLine"]=>
+                int(32)
+              }
+            }
+            ["byRef"]=>
+            bool(false)
+            ["variadic"]=>
+            bool(true)
+            ["var"]=>
+            object(PhpParser\Node\Expr\Variable)#1263 (2) {
+              ["name"]=>
+              string(4) "args"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(32)
+                ["endLine"]=>
+                int(32)
+              }
+            }
+            ["default"]=>
+            NULL
+            ["flags"]=>
+            int(0)
+            ["attrGroups"]=>
+            array(0) {
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(32)
+              ["endLine"]=>
+              int(32)
+            }
+          }
+        }
+        ["returnType"]=>
+        object(PhpParser\Node\Identifier)#1267 (2) {
+          ["name"]=>
+          string(4) "void"
+          ["attributes":protected]=>
+          array(2) {
+            ["startLine"]=>
+            int(32)
+            ["endLine"]=>
+            int(32)
+          }
+        }
+        ["stmts"]=>
+        array(0) {
+        }
+        ["attrGroups"]=>
+        array(0) {
+        }
+        ["attributes":protected]=>
+        array(3) {
+          ["startLine"]=>
+          int(32)
+          ["endLine"]=>
+          int(33)
+          ["Cwola\Overload\Compiler\Visitor\MethodSignatureStamper"]=>
+          string(12) "array, mixed"
+        }
+      }
+      [9]=>
+      object(PhpParser\Node\Stmt\ClassMethod)#1373 (8) {
+        ["flags"]=>
+        int(1)
+        ["byRef"]=>
+        bool(false)
+        ["name"]=>
+        object(PhpParser\Node\Identifier)#1268 (2) {
+          ["name"]=>
+          string(4) "call"
+          ["attributes":protected]=>
+          array(2) {
+            ["startLine"]=>
+            int(35)
+            ["endLine"]=>
+            int(35)
+          }
+        }
+        ["params"]=>
+        array(1) {
+          [0]=>
+          object(PhpParser\Node\Param)#1270 (8) {
+            ["type"]=>
+            NULL
+            ["byRef"]=>
+            bool(false)
+            ["variadic"]=>
+            bool(true)
+            ["var"]=>
+            object(PhpParser\Node\Expr\Variable)#1269 (2) {
+              ["name"]=>
+              string(4) "args"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(35)
+                ["endLine"]=>
+                int(35)
+              }
+            }
+            ["default"]=>
+            NULL
+            ["flags"]=>
+            int(0)
+            ["attrGroups"]=>
+            array(0) {
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(35)
+              ["endLine"]=>
+              int(35)
+            }
+          }
+        }
+        ["returnType"]=>
+        NULL
+        ["stmts"]=>
+        array(9) {
+          [0]=>
+          object(PhpParser\Node\Stmt\Expression)#1276 (2) {
+            ["expr"]=>
+            object(PhpParser\Node\Expr\MethodCall)#1275 (4) {
+              ["var"]=>
+              object(PhpParser\Node\Expr\Variable)#1271 (2) {
+                ["name"]=>
+                string(4) "this"
+                ["attributes":protected]=>
+                array(2) {
+                  ["startLine"]=>
+                  int(36)
+                  ["endLine"]=>
+                  int(36)
+                }
+              }
+              ["name"]=>
+              object(PhpParser\Node\Identifier)#1272 (2) {
+                ["name"]=>
+                string(4) "test"
+                ["attributes":protected]=>
+                array(2) {
+                  ["startLine"]=>
+                  int(36)
+                  ["endLine"]=>
+                  int(36)
+                }
+              }
+              ["args"]=>
+              array(1) {
+                [0]=>
+                object(PhpParser\Node\Arg)#1274 (5) {
+                  ["name"]=>
+                  NULL
+                  ["value"]=>
+                  object(PhpParser\Node\Expr\Variable)#1273 (2) {
+                    ["name"]=>
+                    string(4) "args"
+                    ["attributes":protected]=>
+                    array(2) {
+                      ["startLine"]=>
+                      int(36)
+                      ["endLine"]=>
+                      int(36)
+                    }
+                  }
+                  ["byRef"]=>
+                  bool(false)
+                  ["unpack"]=>
+                  bool(true)
+                  ["attributes":protected]=>
+                  array(2) {
+                    ["startLine"]=>
+                    int(36)
+                    ["endLine"]=>
+                    int(36)
+                  }
+                }
+              }
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(36)
+                ["endLine"]=>
+                int(36)
+              }
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(36)
+              ["endLine"]=>
+              int(36)
+            }
+          }
+          [1]=>
+          object(PhpParser\Node\Stmt\Expression)#1283 (2) {
+            ["expr"]=>
+            object(PhpParser\Node\Expr\Assign)#1282 (3) {
+              ["var"]=>
+              object(PhpParser\Node\Expr\Variable)#1277 (2) {
+                ["name"]=>
+                string(10) "reflection"
+                ["attributes":protected]=>
+                array(2) {
+                  ["startLine"]=>
+                  int(37)
+                  ["endLine"]=>
+                  int(37)
+                }
+              }
+              ["expr"]=>
+              object(PhpParser\Node\Expr\New_)#1281 (3) {
+                ["class"]=>
+                object(PhpParser\Node\Name\FullyQualified)#1210 (2) {
+                  ["parts"]=>
+                  array(1) {
+                    [0]=>
+                    string(15) "ReflectionClass"
+                  }
+                  ["attributes":protected]=>
+                  array(2) {
+                    ["startLine"]=>
+                    int(37)
+                    ["endLine"]=>
+                    int(37)
+                  }
+                }
+                ["args"]=>
+                array(1) {
+                  [0]=>
+                  object(PhpParser\Node\Arg)#1280 (5) {
+                    ["name"]=>
+                    NULL
+                    ["value"]=>
+                    object(PhpParser\Node\Expr\Variable)#1279 (2) {
+                      ["name"]=>
+                      string(4) "this"
+                      ["attributes":protected]=>
+                      array(2) {
+                        ["startLine"]=>
+                        int(37)
+                        ["endLine"]=>
+                        int(37)
+                      }
+                    }
+                    ["byRef"]=>
+                    bool(false)
+                    ["unpack"]=>
+                    bool(false)
+                    ["attributes":protected]=>
+                    array(2) {
+                      ["startLine"]=>
+                      int(37)
+                      ["endLine"]=>
+                      int(37)
+                    }
+                  }
+                }
+                ["attributes":protected]=>
+                array(2) {
+                  ["startLine"]=>
+                  int(37)
+                  ["endLine"]=>
+                  int(37)
+                }
+              }
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(37)
+                ["endLine"]=>
+                int(37)
+              }
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(37)
+              ["endLine"]=>
+              int(37)
+            }
+          }
+          [2]=>
+          object(PhpParser\Node\Stmt\Expression)#1293 (2) {
+            ["expr"]=>
+            object(PhpParser\Node\Expr\Assign)#1292 (3) {
+              ["var"]=>
+              object(PhpParser\Node\Expr\Variable)#1284 (2) {
+                ["name"]=>
+                string(6) "method"
+                ["attributes":protected]=>
+                array(2) {
+                  ["startLine"]=>
+                  int(38)
+                  ["endLine"]=>
+                  int(38)
+                }
+              }
+              ["expr"]=>
+              object(PhpParser\Node\Expr\MethodCall)#1291 (4) {
+                ["var"]=>
+                object(PhpParser\Node\Expr\MethodCall)#1287 (4) {
+                  ["var"]=>
+                  object(PhpParser\Node\Expr\Variable)#1285 (2) {
+                    ["name"]=>
+                    string(10) "reflection"
+                    ["attributes":protected]=>
+                    array(2) {
+                      ["startLine"]=>
+                      int(38)
+                      ["endLine"]=>
+                      int(38)
+                    }
+                  }
+                  ["name"]=>
+                  object(PhpParser\Node\Identifier)#1286 (2) {
+                    ["name"]=>
+                    string(14) "getParentClass"
+                    ["attributes":protected]=>
+                    array(2) {
+                      ["startLine"]=>
+                      int(38)
+                      ["endLine"]=>
+                      int(38)
+                    }
+                  }
+                  ["args"]=>
+                  array(0) {
+                  }
+                  ["attributes":protected]=>
+                  array(2) {
+                    ["startLine"]=>
+                    int(38)
+                    ["endLine"]=>
+                    int(38)
+                  }
+                }
+                ["name"]=>
+                object(PhpParser\Node\Identifier)#1288 (2) {
+                  ["name"]=>
+                  string(9) "getMethod"
+                  ["attributes":protected]=>
+                  array(2) {
+                    ["startLine"]=>
+                    int(38)
+                    ["endLine"]=>
+                    int(38)
+                  }
+                }
+                ["args"]=>
+                array(1) {
+                  [0]=>
+                  object(PhpParser\Node\Arg)#1290 (5) {
+                    ["name"]=>
+                    NULL
+                    ["value"]=>
+                    object(PhpParser\Node\Scalar\String_)#1289 (2) {
+                      ["value"]=>
+                      string(4) "call"
+                      ["attributes":protected]=>
+                      array(4) {
+                        ["startLine"]=>
+                        int(38)
+                        ["endLine"]=>
+                        int(38)
+                        ["kind"]=>
+                        int(1)
+                        ["rawValue"]=>
+                        string(6) "'call'"
+                      }
+                    }
+                    ["byRef"]=>
+                    bool(false)
+                    ["unpack"]=>
+                    bool(false)
+                    ["attributes":protected]=>
+                    array(2) {
+                      ["startLine"]=>
+                      int(38)
+                      ["endLine"]=>
+                      int(38)
+                    }
+                  }
+                }
+                ["attributes":protected]=>
+                array(2) {
+                  ["startLine"]=>
+                  int(38)
+                  ["endLine"]=>
+                  int(38)
+                }
+              }
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(38)
+                ["endLine"]=>
+                int(38)
+              }
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(38)
+              ["endLine"]=>
+              int(38)
+            }
+          }
+          [3]=>
+          object(PhpParser\Node\Stmt\Expression)#1300 (2) {
+            ["expr"]=>
+            object(PhpParser\Node\Expr\MethodCall)#1299 (4) {
+              ["var"]=>
+              object(PhpParser\Node\Expr\Variable)#1294 (2) {
+                ["name"]=>
+                string(6) "method"
+                ["attributes":protected]=>
+                array(2) {
+                  ["startLine"]=>
+                  int(39)
+                  ["endLine"]=>
+                  int(39)
+                }
+              }
+              ["name"]=>
+              object(PhpParser\Node\Identifier)#1295 (2) {
+                ["name"]=>
+                string(13) "setAccessible"
+                ["attributes":protected]=>
+                array(2) {
+                  ["startLine"]=>
+                  int(39)
+                  ["endLine"]=>
+                  int(39)
+                }
+              }
+              ["args"]=>
+              array(1) {
+                [0]=>
+                object(PhpParser\Node\Arg)#1298 (5) {
+                  ["name"]=>
+                  NULL
+                  ["value"]=>
+                  object(PhpParser\Node\Expr\ConstFetch)#1297 (2) {
+                    ["name"]=>
+                    object(PhpParser\Node\Name\FullyQualified)#1278 (2) {
+                      ["parts"]=>
+                      array(1) {
+                        [0]=>
+                        string(4) "true"
+                      }
+                      ["attributes":protected]=>
+                      array(2) {
+                        ["startLine"]=>
+                        int(39)
+                        ["endLine"]=>
+                        int(39)
+                      }
+                    }
+                    ["attributes":protected]=>
+                    array(2) {
+                      ["startLine"]=>
+                      int(39)
+                      ["endLine"]=>
+                      int(39)
+                    }
+                  }
+                  ["byRef"]=>
+                  bool(false)
+                  ["unpack"]=>
+                  bool(false)
+                  ["attributes":protected]=>
+                  array(2) {
+                    ["startLine"]=>
+                    int(39)
+                    ["endLine"]=>
+                    int(39)
+                  }
+                }
+              }
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(39)
+                ["endLine"]=>
+                int(39)
+              }
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(39)
+              ["endLine"]=>
+              int(39)
+            }
+          }
+          [4]=>
+          object(PhpParser\Node\Stmt\Foreach_)#1313 (6) {
+            ["expr"]=>
+            object(PhpParser\Node\Expr\PropertyFetch)#1303 (3) {
+              ["var"]=>
+              object(PhpParser\Node\Expr\Variable)#1301 (2) {
+                ["name"]=>
+                string(4) "this"
+                ["attributes":protected]=>
+                array(2) {
+                  ["startLine"]=>
+                  int(40)
+                  ["endLine"]=>
+                  int(40)
+                }
+              }
+              ["name"]=>
+              object(PhpParser\Node\Identifier)#1302 (2) {
+                ["name"]=>
+                string(12) "interceptors"
+                ["attributes":protected]=>
+                array(2) {
+                  ["startLine"]=>
+                  int(40)
+                  ["endLine"]=>
+                  int(40)
+                }
+              }
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(40)
+                ["endLine"]=>
+                int(40)
+              }
+            }
+            ["keyVar"]=>
+            NULL
+            ["byRef"]=>
+            bool(false)
+            ["valueVar"]=>
+            object(PhpParser\Node\Expr\Variable)#1304 (2) {
+              ["name"]=>
+              string(11) "interceptor"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(40)
+                ["endLine"]=>
+                int(40)
+              }
+            }
+            ["stmts"]=>
+            array(1) {
+              [0]=>
+              object(PhpParser\Node\Stmt\Expression)#1312 (2) {
+                ["expr"]=>
+                object(PhpParser\Node\Expr\MethodCall)#1311 (4) {
+                  ["var"]=>
+                  object(PhpParser\Node\Expr\Variable)#1305 (2) {
+                    ["name"]=>
+                    string(11) "interceptor"
+                    ["attributes":protected]=>
+                    array(2) {
+                      ["startLine"]=>
+                      int(41)
+                      ["endLine"]=>
+                      int(41)
+                    }
+                  }
+                  ["name"]=>
+                  object(PhpParser\Node\Identifier)#1306 (2) {
+                    ["name"]=>
+                    string(11) "enterMethod"
+                    ["attributes":protected]=>
+                    array(2) {
+                      ["startLine"]=>
+                      int(41)
+                      ["endLine"]=>
+                      int(41)
+                    }
+                  }
+                  ["args"]=>
+                  array(2) {
+                    [0]=>
+                    object(PhpParser\Node\Arg)#1308 (5) {
+                      ["name"]=>
+                      NULL
+                      ["value"]=>
+                      object(PhpParser\Node\Scalar\String_)#1307 (2) {
+                        ["value"]=>
+                        string(4) "call"
+                        ["attributes":protected]=>
+                        array(4) {
+                          ["startLine"]=>
+                          int(41)
+                          ["endLine"]=>
+                          int(41)
+                          ["kind"]=>
+                          int(1)
+                          ["rawValue"]=>
+                          string(6) "'call'"
+                        }
+                      }
+                      ["byRef"]=>
+                      bool(false)
+                      ["unpack"]=>
+                      bool(false)
+                      ["attributes":protected]=>
+                      array(2) {
+                        ["startLine"]=>
+                        int(41)
+                        ["endLine"]=>
+                        int(41)
+                      }
+                    }
+                    [1]=>
+                    object(PhpParser\Node\Arg)#1310 (5) {
+                      ["name"]=>
+                      NULL
+                      ["value"]=>
+                      object(PhpParser\Node\Expr\Variable)#1309 (2) {
+                        ["name"]=>
+                        string(4) "args"
+                        ["attributes":protected]=>
+                        array(2) {
+                          ["startLine"]=>
+                          int(41)
+                          ["endLine"]=>
+                          int(41)
+                        }
+                      }
+                      ["byRef"]=>
+                      bool(false)
+                      ["unpack"]=>
+                      bool(true)
+                      ["attributes":protected]=>
+                      array(2) {
+                        ["startLine"]=>
+                        int(41)
+                        ["endLine"]=>
+                        int(41)
+                      }
+                    }
+                  }
+                  ["attributes":protected]=>
+                  array(2) {
+                    ["startLine"]=>
+                    int(41)
+                    ["endLine"]=>
+                    int(41)
+                  }
+                }
+                ["attributes":protected]=>
+                array(2) {
+                  ["startLine"]=>
+                  int(41)
+                  ["endLine"]=>
+                  int(41)
+                }
+              }
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(40)
+              ["endLine"]=>
+              int(42)
+            }
+          }
+          [5]=>
+          object(PhpParser\Node\Stmt\Foreach_)#1326 (6) {
+            ["expr"]=>
+            object(PhpParser\Node\Expr\StaticPropertyFetch)#1315 (3) {
+              ["class"]=>
+              object(PhpParser\Node\Name)#1314 (2) {
+                ["parts"]=>
+                array(1) {
+                  [0]=>
+                  string(6) "static"
+                }
+                ["attributes":protected]=>
+                array(2) {
+                  ["startLine"]=>
+                  int(43)
+                  ["endLine"]=>
+                  int(43)
+                }
+              }
+              ["name"]=>
+              object(PhpParser\Node\VarLikeIdentifier)#1316 (2) {
+                ["name"]=>
+                string(12) "interceptors"
+                ["attributes":protected]=>
+                array(2) {
+                  ["startLine"]=>
+                  int(43)
+                  ["endLine"]=>
+                  int(43)
+                }
+              }
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(43)
+                ["endLine"]=>
+                int(43)
+              }
+            }
+            ["keyVar"]=>
+            NULL
+            ["byRef"]=>
+            bool(false)
+            ["valueVar"]=>
+            object(PhpParser\Node\Expr\Variable)#1317 (2) {
+              ["name"]=>
+              string(11) "interceptor"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(43)
+                ["endLine"]=>
+                int(43)
+              }
+            }
+            ["stmts"]=>
+            array(1) {
+              [0]=>
+              object(PhpParser\Node\Stmt\Expression)#1325 (2) {
+                ["expr"]=>
+                object(PhpParser\Node\Expr\MethodCall)#1324 (4) {
+                  ["var"]=>
+                  object(PhpParser\Node\Expr\Variable)#1318 (2) {
+                    ["name"]=>
+                    string(11) "interceptor"
+                    ["attributes":protected]=>
+                    array(2) {
+                      ["startLine"]=>
+                      int(44)
+                      ["endLine"]=>
+                      int(44)
+                    }
+                  }
+                  ["name"]=>
+                  object(PhpParser\Node\Identifier)#1319 (2) {
+                    ["name"]=>
+                    string(11) "enterMethod"
+                    ["attributes":protected]=>
+                    array(2) {
+                      ["startLine"]=>
+                      int(44)
+                      ["endLine"]=>
+                      int(44)
+                    }
+                  }
+                  ["args"]=>
+                  array(2) {
+                    [0]=>
+                    object(PhpParser\Node\Arg)#1321 (5) {
+                      ["name"]=>
+                      NULL
+                      ["value"]=>
+                      object(PhpParser\Node\Scalar\String_)#1320 (2) {
+                        ["value"]=>
+                        string(4) "call"
+                        ["attributes":protected]=>
+                        array(4) {
+                          ["startLine"]=>
+                          int(44)
+                          ["endLine"]=>
+                          int(44)
+                          ["kind"]=>
+                          int(1)
+                          ["rawValue"]=>
+                          string(6) "'call'"
+                        }
+                      }
+                      ["byRef"]=>
+                      bool(false)
+                      ["unpack"]=>
+                      bool(false)
+                      ["attributes":protected]=>
+                      array(2) {
+                        ["startLine"]=>
+                        int(44)
+                        ["endLine"]=>
+                        int(44)
+                      }
+                    }
+                    [1]=>
+                    object(PhpParser\Node\Arg)#1323 (5) {
+                      ["name"]=>
+                      NULL
+                      ["value"]=>
+                      object(PhpParser\Node\Expr\Variable)#1322 (2) {
+                        ["name"]=>
+                        string(4) "args"
+                        ["attributes":protected]=>
+                        array(2) {
+                          ["startLine"]=>
+                          int(44)
+                          ["endLine"]=>
+                          int(44)
+                        }
+                      }
+                      ["byRef"]=>
+                      bool(false)
+                      ["unpack"]=>
+                      bool(true)
+                      ["attributes":protected]=>
+                      array(2) {
+                        ["startLine"]=>
+                        int(44)
+                        ["endLine"]=>
+                        int(44)
+                      }
+                    }
+                  }
+                  ["attributes":protected]=>
+                  array(2) {
+                    ["startLine"]=>
+                    int(44)
+                    ["endLine"]=>
+                    int(44)
+                  }
+                }
+                ["attributes":protected]=>
+                array(2) {
+                  ["startLine"]=>
+                  int(44)
+                  ["endLine"]=>
+                  int(44)
+                }
+              }
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(43)
+              ["endLine"]=>
+              int(45)
+            }
+          }
+          [6]=>
+          object(PhpParser\Node\Stmt\TryCatch)#1369 (4) {
+            ["stmts"]=>
+            array(1) {
+              [0]=>
+              object(PhpParser\Node\Stmt\Expression)#1336 (2) {
+                ["expr"]=>
+                object(PhpParser\Node\Expr\Assign)#1335 (3) {
+                  ["var"]=>
+                  object(PhpParser\Node\Expr\Variable)#1327 (2) {
+                    ["name"]=>
+                    string(3) "res"
+                    ["attributes":protected]=>
+                    array(2) {
+                      ["startLine"]=>
+                      int(47)
+                      ["endLine"]=>
+                      int(47)
+                    }
+                  }
+                  ["expr"]=>
+                  object(PhpParser\Node\Expr\MethodCall)#1334 (4) {
+                    ["var"]=>
+                    object(PhpParser\Node\Expr\Variable)#1328 (2) {
+                      ["name"]=>
+                      string(6) "method"
+                      ["attributes":protected]=>
+                      array(2) {
+                        ["startLine"]=>
+                        int(47)
+                        ["endLine"]=>
+                        int(47)
+                      }
+                    }
+                    ["name"]=>
+                    object(PhpParser\Node\Identifier)#1329 (2) {
+                      ["name"]=>
+                      string(6) "invoke"
+                      ["attributes":protected]=>
+                      array(2) {
+                        ["startLine"]=>
+                        int(47)
+                        ["endLine"]=>
+                        int(47)
+                      }
+                    }
+                    ["args"]=>
+                    array(2) {
+                      [0]=>
+                      object(PhpParser\Node\Arg)#1331 (5) {
+                        ["name"]=>
+                        NULL
+                        ["value"]=>
+                        object(PhpParser\Node\Expr\Variable)#1330 (2) {
+                          ["name"]=>
+                          string(4) "this"
+                          ["attributes":protected]=>
+                          array(2) {
+                            ["startLine"]=>
+                            int(47)
+                            ["endLine"]=>
+                            int(47)
+                          }
+                        }
+                        ["byRef"]=>
+                        bool(false)
+                        ["unpack"]=>
+                        bool(false)
+                        ["attributes":protected]=>
+                        array(2) {
+                          ["startLine"]=>
+                          int(47)
+                          ["endLine"]=>
+                          int(47)
+                        }
+                      }
+                      [1]=>
+                      object(PhpParser\Node\Arg)#1333 (5) {
+                        ["name"]=>
+                        NULL
+                        ["value"]=>
+                        object(PhpParser\Node\Expr\Variable)#1332 (2) {
+                          ["name"]=>
+                          string(4) "args"
+                          ["attributes":protected]=>
+                          array(2) {
+                            ["startLine"]=>
+                            int(47)
+                            ["endLine"]=>
+                            int(47)
+                          }
+                        }
+                        ["byRef"]=>
+                        bool(false)
+                        ["unpack"]=>
+                        bool(true)
+                        ["attributes":protected]=>
+                        array(2) {
+                          ["startLine"]=>
+                          int(47)
+                          ["endLine"]=>
+                          int(47)
+                        }
+                      }
+                    }
+                    ["attributes":protected]=>
+                    array(2) {
+                      ["startLine"]=>
+                      int(47)
+                      ["endLine"]=>
+                      int(47)
+                    }
+                  }
+                  ["attributes":protected]=>
+                  array(2) {
+                    ["startLine"]=>
+                    int(47)
+                    ["endLine"]=>
+                    int(47)
+                  }
+                }
+                ["attributes":protected]=>
+                array(2) {
+                  ["startLine"]=>
+                  int(47)
+                  ["endLine"]=>
+                  int(47)
+                }
+              }
+            }
+            ["catches"]=>
+            array(1) {
+              [0]=>
+              object(PhpParser\Node\Stmt\Catch_)#1342 (4) {
+                ["types"]=>
+                array(1) {
+                  [0]=>
+                  object(PhpParser\Node\Name\FullyQualified)#1337 (2) {
+                    ["parts"]=>
+                    array(1) {
+                      [0]=>
+                      string(9) "Throwable"
+                    }
+                    ["attributes":protected]=>
+                    array(2) {
+                      ["startLine"]=>
+                      int(48)
+                      ["endLine"]=>
+                      int(48)
+                    }
+                  }
+                }
+                ["var"]=>
+                object(PhpParser\Node\Expr\Variable)#1338 (2) {
+                  ["name"]=>
+                  string(1) "e"
+                  ["attributes":protected]=>
+                  array(2) {
+                    ["startLine"]=>
+                    int(48)
+                    ["endLine"]=>
+                    int(48)
+                  }
+                }
+                ["stmts"]=>
+                array(1) {
+                  [0]=>
+                  object(PhpParser\Node\Stmt\Throw_)#1341 (2) {
+                    ["expr"]=>
+                    object(PhpParser\Node\Expr\Variable)#1339 (2) {
+                      ["name"]=>
+                      string(1) "e"
+                      ["attributes":protected]=>
+                      array(2) {
+                        ["startLine"]=>
+                        int(49)
+                        ["endLine"]=>
+                        int(49)
+                      }
+                    }
+                    ["attributes":protected]=>
+                    array(2) {
+                      ["startLine"]=>
+                      int(49)
+                      ["endLine"]=>
+                      int(49)
+                    }
+                  }
+                }
+                ["attributes":protected]=>
+                array(2) {
+                  ["startLine"]=>
+                  int(48)
+                  ["endLine"]=>
+                  int(50)
+                }
+              }
+            }
+            ["finally"]=>
+            object(PhpParser\Node\Stmt\Finally_)#1368 (2) {
+              ["stmts"]=>
+              array(2) {
+                [0]=>
+                object(PhpParser\Node\Stmt\Foreach_)#1354 (6) {
+                  ["expr"]=>
+                  object(PhpParser\Node\Expr\PropertyFetch)#1345 (3) {
+                    ["var"]=>
+                    object(PhpParser\Node\Expr\Variable)#1343 (2) {
+                      ["name"]=>
+                      string(4) "this"
+                      ["attributes":protected]=>
+                      array(2) {
+                        ["startLine"]=>
+                        int(51)
+                        ["endLine"]=>
+                        int(51)
+                      }
+                    }
+                    ["name"]=>
+                    object(PhpParser\Node\Identifier)#1344 (2) {
+                      ["name"]=>
+                      string(12) "interceptors"
+                      ["attributes":protected]=>
+                      array(2) {
+                        ["startLine"]=>
+                        int(51)
+                        ["endLine"]=>
+                        int(51)
+                      }
+                    }
+                    ["attributes":protected]=>
+                    array(2) {
+                      ["startLine"]=>
+                      int(51)
+                      ["endLine"]=>
+                      int(51)
+                    }
+                  }
+                  ["keyVar"]=>
+                  NULL
+                  ["byRef"]=>
+                  bool(false)
+                  ["valueVar"]=>
+                  object(PhpParser\Node\Expr\Variable)#1346 (2) {
+                    ["name"]=>
+                    string(11) "interceptor"
+                    ["attributes":protected]=>
+                    array(2) {
+                      ["startLine"]=>
+                      int(51)
+                      ["endLine"]=>
+                      int(51)
+                    }
+                  }
+                  ["stmts"]=>
+                  array(1) {
+                    [0]=>
+                    object(PhpParser\Node\Stmt\Expression)#1353 (2) {
+                      ["expr"]=>
+                      object(PhpParser\Node\Expr\MethodCall)#1352 (4) {
+                        ["var"]=>
+                        object(PhpParser\Node\Expr\Variable)#1340 (2) {
+                          ["name"]=>
+                          string(11) "interceptor"
+                          ["attributes":protected]=>
+                          array(2) {
+                            ["startLine"]=>
+                            int(52)
+                            ["endLine"]=>
+                            int(52)
+                          }
+                        }
+                        ["name"]=>
+                        object(PhpParser\Node\Identifier)#1347 (2) {
+                          ["name"]=>
+                          string(11) "leaveMethod"
+                          ["attributes":protected]=>
+                          array(2) {
+                            ["startLine"]=>
+                            int(52)
+                            ["endLine"]=>
+                            int(52)
+                          }
+                        }
+                        ["args"]=>
+                        array(2) {
+                          [0]=>
+                          object(PhpParser\Node\Arg)#1349 (5) {
+                            ["name"]=>
+                            NULL
+                            ["value"]=>
+                            object(PhpParser\Node\Scalar\String_)#1348 (2) {
+                              ["value"]=>
+                              string(4) "call"
+                              ["attributes":protected]=>
+                              array(4) {
+                                ["startLine"]=>
+                                int(52)
+                                ["endLine"]=>
+                                int(52)
+                                ["kind"]=>
+                                int(1)
+                                ["rawValue"]=>
+                                string(6) "'call'"
+                              }
+                            }
+                            ["byRef"]=>
+                            bool(false)
+                            ["unpack"]=>
+                            bool(false)
+                            ["attributes":protected]=>
+                            array(2) {
+                              ["startLine"]=>
+                              int(52)
+                              ["endLine"]=>
+                              int(52)
+                            }
+                          }
+                          [1]=>
+                          object(PhpParser\Node\Arg)#1351 (5) {
+                            ["name"]=>
+                            NULL
+                            ["value"]=>
+                            object(PhpParser\Node\Expr\Variable)#1350 (2) {
+                              ["name"]=>
+                              string(4) "args"
+                              ["attributes":protected]=>
+                              array(2) {
+                                ["startLine"]=>
+                                int(52)
+                                ["endLine"]=>
+                                int(52)
+                              }
+                            }
+                            ["byRef"]=>
+                            bool(false)
+                            ["unpack"]=>
+                            bool(true)
+                            ["attributes":protected]=>
+                            array(2) {
+                              ["startLine"]=>
+                              int(52)
+                              ["endLine"]=>
+                              int(52)
+                            }
+                          }
+                        }
+                        ["attributes":protected]=>
+                        array(2) {
+                          ["startLine"]=>
+                          int(52)
+                          ["endLine"]=>
+                          int(52)
+                        }
+                      }
+                      ["attributes":protected]=>
+                      array(2) {
+                        ["startLine"]=>
+                        int(52)
+                        ["endLine"]=>
+                        int(52)
+                      }
+                    }
+                  }
+                  ["attributes":protected]=>
+                  array(2) {
+                    ["startLine"]=>
+                    int(51)
+                    ["endLine"]=>
+                    int(53)
+                  }
+                }
+                [1]=>
+                object(PhpParser\Node\Stmt\Foreach_)#1367 (6) {
+                  ["expr"]=>
+                  object(PhpParser\Node\Expr\StaticPropertyFetch)#1356 (3) {
+                    ["class"]=>
+                    object(PhpParser\Node\Name)#1355 (2) {
+                      ["parts"]=>
+                      array(1) {
+                        [0]=>
+                        string(6) "static"
+                      }
+                      ["attributes":protected]=>
+                      array(2) {
+                        ["startLine"]=>
+                        int(54)
+                        ["endLine"]=>
+                        int(54)
+                      }
+                    }
+                    ["name"]=>
+                    object(PhpParser\Node\VarLikeIdentifier)#1357 (2) {
+                      ["name"]=>
+                      string(12) "interceptors"
+                      ["attributes":protected]=>
+                      array(2) {
+                        ["startLine"]=>
+                        int(54)
+                        ["endLine"]=>
+                        int(54)
+                      }
+                    }
+                    ["attributes":protected]=>
+                    array(2) {
+                      ["startLine"]=>
+                      int(54)
+                      ["endLine"]=>
+                      int(54)
+                    }
+                  }
+                  ["keyVar"]=>
+                  NULL
+                  ["byRef"]=>
+                  bool(false)
+                  ["valueVar"]=>
+                  object(PhpParser\Node\Expr\Variable)#1358 (2) {
+                    ["name"]=>
+                    string(11) "interceptor"
+                    ["attributes":protected]=>
+                    array(2) {
+                      ["startLine"]=>
+                      int(54)
+                      ["endLine"]=>
+                      int(54)
+                    }
+                  }
+                  ["stmts"]=>
+                  array(1) {
+                    [0]=>
+                    object(PhpParser\Node\Stmt\Expression)#1366 (2) {
+                      ["expr"]=>
+                      object(PhpParser\Node\Expr\MethodCall)#1365 (4) {
+                        ["var"]=>
+                        object(PhpParser\Node\Expr\Variable)#1359 (2) {
+                          ["name"]=>
+                          string(11) "interceptor"
+                          ["attributes":protected]=>
+                          array(2) {
+                            ["startLine"]=>
+                            int(55)
+                            ["endLine"]=>
+                            int(55)
+                          }
+                        }
+                        ["name"]=>
+                        object(PhpParser\Node\Identifier)#1360 (2) {
+                          ["name"]=>
+                          string(11) "leaveMethod"
+                          ["attributes":protected]=>
+                          array(2) {
+                            ["startLine"]=>
+                            int(55)
+                            ["endLine"]=>
+                            int(55)
+                          }
+                        }
+                        ["args"]=>
+                        array(2) {
+                          [0]=>
+                          object(PhpParser\Node\Arg)#1362 (5) {
+                            ["name"]=>
+                            NULL
+                            ["value"]=>
+                            object(PhpParser\Node\Scalar\String_)#1361 (2) {
+                              ["value"]=>
+                              string(4) "call"
+                              ["attributes":protected]=>
+                              array(4) {
+                                ["startLine"]=>
+                                int(55)
+                                ["endLine"]=>
+                                int(55)
+                                ["kind"]=>
+                                int(1)
+                                ["rawValue"]=>
+                                string(6) "'call'"
+                              }
+                            }
+                            ["byRef"]=>
+                            bool(false)
+                            ["unpack"]=>
+                            bool(false)
+                            ["attributes":protected]=>
+                            array(2) {
+                              ["startLine"]=>
+                              int(55)
+                              ["endLine"]=>
+                              int(55)
+                            }
+                          }
+                          [1]=>
+                          object(PhpParser\Node\Arg)#1364 (5) {
+                            ["name"]=>
+                            NULL
+                            ["value"]=>
+                            object(PhpParser\Node\Expr\Variable)#1363 (2) {
+                              ["name"]=>
+                              string(4) "args"
+                              ["attributes":protected]=>
+                              array(2) {
+                                ["startLine"]=>
+                                int(55)
+                                ["endLine"]=>
+                                int(55)
+                              }
+                            }
+                            ["byRef"]=>
+                            bool(false)
+                            ["unpack"]=>
+                            bool(true)
+                            ["attributes":protected]=>
+                            array(2) {
+                              ["startLine"]=>
+                              int(55)
+                              ["endLine"]=>
+                              int(55)
+                            }
+                          }
+                        }
+                        ["attributes":protected]=>
+                        array(2) {
+                          ["startLine"]=>
+                          int(55)
+                          ["endLine"]=>
+                          int(55)
+                        }
+                      }
+                      ["attributes":protected]=>
+                      array(2) {
+                        ["startLine"]=>
+                        int(55)
+                        ["endLine"]=>
+                        int(55)
+                      }
+                    }
+                  }
+                  ["attributes":protected]=>
+                  array(2) {
+                    ["startLine"]=>
+                    int(54)
+                    ["endLine"]=>
+                    int(56)
+                  }
+                }
+              }
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(50)
+                ["endLine"]=>
+                int(57)
+              }
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(46)
+              ["endLine"]=>
+              int(57)
+            }
+          }
+          [7]=>
+          object(PhpParser\Node\Stmt\Return_)#1371 (2) {
+            ["expr"]=>
+            object(PhpParser\Node\Expr\Variable)#1370 (2) {
+              ["name"]=>
+              string(3) "res"
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(58)
+                ["endLine"]=>
+                int(58)
+              }
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(58)
+              ["endLine"]=>
+              int(58)
+            }
+          }
+          [8]=>
+          object(PhpParser\Node\Stmt\Return_)#1372 (2) {
+            ["expr"]=>
+            NULL
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(59)
+              ["endLine"]=>
+              int(59)
+            }
+          }
+        }
+        ["attrGroups"]=>
+        array(0) {
+        }
+        ["attributes":protected]=>
+        array(3) {
+          ["startLine"]=>
+          int(35)
+          ["endLine"]=>
+          int(60)
+          ["Cwola\Overload\Compiler\Visitor\MethodSignatureStamper"]=>
+          NULL
+        }
+      }
+    }
+    ["attrGroups"]=>
+    array(1) {
+      [0]=>
+      object(PhpParser\Node\AttributeGroup)#1205 (2) {
+        ["attrs"]=>
+        array(1) {
+          [0]=>
+          object(PhpParser\Node\Attribute)#1204 (3) {
+            ["name"]=>
+            object(PhpParser\Node\Name\FullyQualified)#1203 (2) {
+              ["parts"]=>
+              array(3) {
+                [0]=>
+                string(5) "Cwola"
+                [1]=>
+                string(8) "Overload"
+                [2]=>
+                string(12) "Overloadable"
+              }
+              ["attributes":protected]=>
+              array(2) {
+                ["startLine"]=>
+                int(14)
+                ["endLine"]=>
+                int(14)
+              }
+            }
+            ["args"]=>
+            array(0) {
+            }
+            ["attributes":protected]=>
+            array(2) {
+              ["startLine"]=>
+              int(14)
+              ["endLine"]=>
+              int(14)
+            }
+          }
+        }
+        ["attributes":protected]=>
+        array(2) {
+          ["startLine"]=>
+          int(14)
+          ["endLine"]=>
+          int(14)
+        }
+      }
+    }
+    ["namespacedName"]=>
+    object(PhpParser\Node\Name)#1209 (2) {
+      ["parts"]=>
+      array(1) {
+        [0]=>
+        string(4) "TEST"
+      }
+      ["attributes":protected]=>
+      array(0) {
+      }
+    }
+    ["attributes":protected]=>
+    array(2) {
+      ["startLine"]=>
+      int(14)
+      ["endLine"]=>
+      int(61)
+    }
+  }
+}
