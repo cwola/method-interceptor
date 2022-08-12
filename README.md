@@ -1,36 +1,29 @@
-# Collection
+# Interceptor
 
-Providing Collection and TypedArray(Cwola library).
+**Experimental: This is an experimental version.**
 
-## Overview
-
-Based on [illuminate/collections](https://github.com/illuminate/collections).  
-So, it can be treated in the same way as [illuminate/collections](https://github.com/illuminate/collections).  
-But, it is more lightweight than [illuminate/collections](https://github.com/illuminate/collections) because it has no dependencies.
+Providing Intercepter for PHP(Cwola library).
 
 ## Requirement
-- PHP7.0+
+- PHP8.0 (PHP8.0 to PHP8.1)
 
 ## Installation
 ```
-composer require cwola/collection
+composer require cwola/interceptor
 ```
 
 ## Usage
-- Readable
 ```
 <?php
 
-use Cwola\Attribute\Readable;
+use Cwola\Interceptor;
 
 class Foo {
-    use Readable;
+    use Interceptor\Interceptable;
 
-    /**
-     * @var string
-     */
-    #[Readable]
-    protected string $protectedString = 'Protected';
+    public function __construct() {
+        $this->__addInterceptor();
+    }
 }
 
 class Bar extends Foo {
