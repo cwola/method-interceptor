@@ -22,33 +22,76 @@ class Foo {
     use Interceptor\Interceptable;
 
     public function __construct() {
-        $this->__addInterceptor(new );
+        $this->__addInterceptor(new InterceptTimer);
+        $this->__addInterceptor(new InterceptGreet);
+    }
+
+    public function run() :bool {
+        $this->message('Hello');
+        return true;
+    }
+
+    protected function message(string $message) {
+        $this->privateMessage(
+            $this->bold($message)
+        );
+    }
+
+    #[Interceptor\DoNotIntercept]
+    protected function bold(string $message) :string {
+        return '**' . $message . '**';
+    }
+
+    private function privateMessage(string $message) {
+        echo $message . PHP_EOL;
     }
 }
 
-class Bar extends Foo {
-    /**
-     * @var string
-     */
-    protected string $override = 'OVER RIDE!!';
+class InterceptTimer implements Interceptor\Interceptor {
+    protected array $timers = [];
 
-    /**
-     * {@inheritDoc}
-     */
-    private function __read(string $name): mixed {
-        return $this->override;
+    public function enterMethod(string $name, ...$args) :void {
+        $timers[$name] = new StopWatch;
+    }
+
+    public function leaveMethod(string $name, ...$args) :void {
+        echo 'TIME : ' . $timers[$name]->stop()->time() . PHP_EOL;
     }
 }
 
-$foo = new Foo;
-echo $foo->protectedString;  // Protected
-$foo->protectedString = 'modify';  // Error
+class InterceptGreet implements Interceptor\Interceptor {
+    public function enterMethod(string $name, ...$args) :void {
+        echo 'ENTER : ' . $name . PHP_EOL;
+    }
 
-$custom = new Bar;
-echo $custom->protectedString;  // OVER RIDE!!
-echo $custom->override;  // Error
+    public function leaveMethod(string $name, ...$args) :void {
+        echo 'LEAVE : ' . $name . PHP_EOL;
+    }
+}
+
+$foo = new ((new Foo)->intercept());
+// If you are using singleton instances:
+// $foo = ((Foo::getInstance(...params))->intercept())::getInstance(...params);
+
+$foo->run();
+// output:
+//
+// [ENTER] : run
+// [ENTER] : message
+// **Hello**
+// TIME : xxx
+// [LEAVE] : message
+// TIME : xxx
+// [LEAVE] : run
+//
+
+
+/*
+    Private methods cannot be intercepted.
+*/
+
 ```
 
 ## Licence
 
-[MIT](https://github.com/cwola/collection/blob/main/LICENSE)
+[MIT](https://github.com/cwola/interceptor/blob/main/LICENSE)
