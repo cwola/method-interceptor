@@ -28,7 +28,7 @@ trait Interceptable {
      * @return void
      */
     #[DoNotIntercept]
-    public static function __registerStaticInterceptor(Interceptor $interceptor) :void {
+    public static function __addStaticInterceptor(Interceptor $interceptor) :void {
         static::$__staticInterceptors[] = $interceptor;
     }
 
@@ -37,7 +37,7 @@ trait Interceptable {
      * @return static
      */
     #[DoNotIntercept]
-    public function __registerInstanceInterceptor(Interceptor $interceptor) :static {
+    public function __addInstanceInterceptor(Interceptor $interceptor) :static {
         $this->__instanceInterceptors[] = $interceptor;
         return $this;
     }
@@ -47,9 +47,9 @@ trait Interceptable {
      * @return static
      */
     #[DoNotIntercept]
-    public function __registerInterceptor(Interceptor $interceptor) :static {
-        static::__registerStaticInterceptor($interceptor);
-        $this->__registerInstanceInterceptor($interceptor);
+    public function __addInterceptor(Interceptor $interceptor) :static {
+        static::__addStaticInterceptor($interceptor);
+        $this->__addInstanceInterceptor($interceptor);
         return $this;
     }
 
