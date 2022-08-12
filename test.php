@@ -15,7 +15,7 @@ class TEST {
     use Interceptor\Interceptable;
 
     public function __construct() {
-        $this->__registerInterceptor(new TEST_INTERCEPT);
+        $this->__addInterceptor(new TEST_INTERCEPT);
     }
 
     public function test() {
