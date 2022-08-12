@@ -5,7 +5,8 @@
 Providing Intercepter for PHP(Cwola library).
 
 ## Requirement
-- PHP8.0 (PHP8.0 to PHP8.1)
+- PHP ^8.0 (PHP8.0 to PHP8.1)
+- [nikic/php-parser](https://github.com/nikic/PHP-Parser) ^4.0
 
 ## Installation
 ```
