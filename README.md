@@ -22,7 +22,7 @@ class Foo {
     use Interceptor\Interceptable;
 
     public function __construct() {
-        $this->__addInterceptor();
+        $this->__addInterceptor(new );
     }
 }
 
