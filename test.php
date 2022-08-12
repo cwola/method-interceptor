@@ -40,7 +40,7 @@ class TEST {
     }
 }
 
-class TEST_INTERCEPT extends Interceptor\Interceptor {
+class TEST_INTERCEPT implements Interceptor\Interceptor {
     public function __enterMethod(string $name, ...$args): void {
         echo '[ENTER] ' . $name . PHP_EOL;
     }
