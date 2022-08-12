@@ -8,15 +8,15 @@ abstract class Interceptor {
 
     /**
      * @param string $name
-     * @param mixed ...$args
+     * @param ...$args
      * @return void
      */
-    abstract public function enterMethod(string $name, mixed ...$args) :void;
+    abstract public function __enterMethod(string $name, ...$args) :void;
 
     /**
      * @param string $name
-     * @param mixed ...$args
+     * @param ...$args
      * @return void
      */
-    abstract public function leaveMethod(string $name, mixed ...$args) :void;
+    abstract public function __leaveMethod(string $name, ...$args) :void;
 }
