@@ -76,6 +76,7 @@ $foo = new ((new Foo)->intercept());
 
 $foo->run();
 // output:
+/* Private methods cannot be intercepted. */
 //
 // [ENTER] : run
 // [ENTER] : message
@@ -86,10 +87,13 @@ $foo->run();
 // [LEAVE] : run
 //
 
+$foo instanceof Foo;
+// true
 
-/*
-    Private methods cannot be intercepted.
-*/
+but,
+$origin = new Foo;
+$origin::class === $foo::class;
+// false
 
 ```
 
