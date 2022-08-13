@@ -1,3 +1,4 @@
+src/temp/*.t.php
 vendor/
 composer.phar
 composer.lock

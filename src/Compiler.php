@@ -6,10 +6,15 @@ namespace Cwola\Interceptor;
 
 use ReflectionClass;
 use ReflectionMethod;
+use ReflectionNamedType;
+use ReflectionUnionType;
+//@since PHP8.1
+//use ReflectionIntersectionType;
 use LogicException;
 use PhpParser\Node;
 use PhpParser\BuilderFactory;
 use PhpParser\Builder;
+use PhpParser\BuilderHelpers;
 use PhpParser\PrettyPrinter\Standard as PrettyPrinter;
 
 class Compiler {
@@ -52,16 +57,17 @@ class Compiler {
             throw new LogicException('');
         }
 
-        $classPath = $this->getClassPath();
-        $newClassName = $classPath['className'] . '_' . $this->signature();
+        $namespace = $reflection->getNamespaceName();
+        $className = $reflection->getShortName();
+        $newClassName = $className . '_' . $this->signature($reflection);
 
-        $classBuilder = $this->createClassBuilder($newClassName, $classPath['className']);
+        $classBuilder = $this->createClassBuilder($newClassName, $className);
         $this->appendClassMethods($reflection, $classBuilder);
 
 
         $stmts = [];
-        if (\strlen($classPath['namespace']) > 0) {
-            $stmts[] = $this->factory->namespace($classPath['namespace'])->getNode();
+        if ($reflection->inNamespace()) {
+            $stmts[] = $this->factory->namespace($namespace)->getNode();
         }
         $stmts[] = $classBuilder->getNode();
         $source = $this->toSourceString($stmts);
@@ -79,27 +85,16 @@ class Compiler {
     }
 
     /**
-     * @param void
-     * @return string[]
-     */
-    protected function getClassPath() :array {
-        $p = \explode('\\', $this->class::class);
-        $className = \array_pop($p);
-        $namespace = empty($p) ? '' : \implode('\\', $p);
-        return [
-            'className' => $className,
-            'namespace' => $namespace
-        ];
-    }
-
-    /**
-     * @param void
+     * @param \ReflectionClass $classRef
      * @return string
      */
-    protected function signature() :string {
-        $classPath = $this->getClassPath();
-        $hash = \md5(\uniqid($classPath['className'] . $classPath['namespace'], true));
-        return $hash;
+    protected function signature(ReflectionClass $classRef) :string {
+        return \md5(
+            \uniqid(
+                $classRef->getNamespaceName() . '\\' . $classRef->getShortName(),
+                true
+            )
+        );
     }
 
     /**
@@ -217,8 +212,6 @@ class Compiler {
 
             if ($paramRef->isDefaultValueAvailable()) {
                 $param->setDefault($paramRef->getDefaultValue());
-            } else if ($paramRef->isOptional()) {
-                $param->setDefault(null);
             }
 
             if ($paramRef->isPassedByReference()) {
@@ -227,6 +220,25 @@ class Compiler {
 
             if ($paramRef->isVariadic()) {
                 $param->makeVariadic();
+            }
+
+            if ($paramRef->hasType()) {
+                $typeRef = $paramRef->getType();
+                if ($typeRef instanceof ReflectionNamedType) {
+                    $param->setType($typeRef->getName());
+                } else {
+                    $types = [];
+                    foreach ($typeRef->getTypes() as $type) {
+                        $types[] = BuilderHelpers::normalizeType($type->getName());
+                    }
+                    if ($typeRef instanceof ReflectionUnionType) {
+                        $param->setType(new Node\UnionType($types));
+                    } else {
+                        // @since PHP8.1
+                        // ReflectionIntersectionType
+                        $param->setType(new Node\IntersectionType($types));
+                    }
+                }
             }
             $methodBuilder->addParam($param);
         }
