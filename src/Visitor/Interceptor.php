@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cwola\Interceptor;
+namespace Cwola\Interceptor\Visitor;
 
 interface Interceptor {
 

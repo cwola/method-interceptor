@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cwola\Interceptor;
+namespace Cwola\Interceptor\Compiler;
 
 use ReflectionClass;
 use ReflectionMethod;
@@ -16,8 +16,11 @@ use PhpParser\BuilderFactory;
 use PhpParser\Builder;
 use PhpParser\BuilderHelpers;
 use PhpParser\PrettyPrinter\Standard as PrettyPrinter;
+use Cwola\Interceptor\Interceptable;
+use Cwola\Interceptor\Attribute;
 
-class Compiler {
+
+class Handler {
 
     /**
      * @var \Cwola\Interceptor\Interceptable
@@ -50,7 +53,7 @@ class Compiler {
      */
     public function compile() :string|null {
         $reflection = new ReflectionClass($this->class);
-        foreach ($reflection->getAttributes(Intercepted::class) as $attr) {
+        foreach ($reflection->getAttributes(Attribute\Intercepted::class) as $attr) {
             return null;
         }
         if ($reflection->isFinal()) {
@@ -106,7 +109,7 @@ class Compiler {
         $class = $this->factory->class($name)
                         ->extend($parent)
                         ->addAttribute(
-                            $this->factory->attribute(Intercepted::class)
+                            $this->factory->attribute(Attribute\Intercepted::class)
                         );
         return $class;
     }
@@ -155,8 +158,8 @@ class Compiler {
      * @return bool
      */
     protected function isIgnoreMethod(ReflectionMethod $methodRef) :bool {
-        foreach ($methodRef->getAttributes(DoNotIntercept::class) as $attrRef) {
-            if ($attrRef->newInstance() instanceof DoNotIntercept) {
+        foreach ($methodRef->getAttributes(Attribute\DoNotIntercept::class) as $attrRef) {
+            if ($attrRef->newInstance() instanceof Attribute\DoNotIntercept) {
                 return true;
             }
         }
@@ -179,8 +182,9 @@ class Compiler {
     protected function buildClassMethod(ReflectionMethod $methodRef) :Builder\Method {
         $methodBuilder = $this->createMethodBuilder($methodRef->name);
         $this->appendAttributes($methodRef, $methodBuilder);
-        $this->appendParams($methodRef, $methodBuilder);
         $this->setMethodSignature($methodRef, $methodBuilder);
+        $this->appendParams($methodRef, $methodBuilder);
+        $this->appendReturns($methodRef, $methodBuilder);
         $this->appendMethodStmt($methodRef, $methodBuilder);
         return $methodBuilder;
     }
@@ -223,24 +227,27 @@ class Compiler {
             }
 
             if ($paramRef->hasType()) {
-                $typeRef = $paramRef->getType();
-                if ($typeRef instanceof ReflectionNamedType) {
-                    $param->setType($typeRef->getName());
-                } else {
-                    $types = [];
-                    foreach ($typeRef->getTypes() as $type) {
-                        $types[] = BuilderHelpers::normalizeType($type->getName());
-                    }
-                    if ($typeRef instanceof ReflectionUnionType) {
-                        $param->setType(new Node\UnionType($types));
-                    } else {
-                        // @since PHP8.1
-                        // ReflectionIntersectionType
-                        $param->setType(new Node\IntersectionType($types));
-                    }
-                }
+                $param->setType(
+                    $this->normalizeTypes($paramRef->getType())
+                );
             }
             $methodBuilder->addParam($param);
+        }
+    }
+
+    /**
+     * @param \ReflectionMethod $methodRef
+     * @param \PhpParser\Builder\Method $methodBuilder
+     * @return void
+     */
+    protected function appendReturns(ReflectionMethod $methodRef, Builder\Method $methodBuilder) :void {
+        if ($methodRef->returnsReference()) {
+            $methodBuilder->makeReturnByRef();
+        }
+        if ($methodRef->hasReturnType()) {
+            $methodBuilder->setReturnType(
+                $this->normalizeTypes($methodRef->getReturnType())
+            );
         }
     }
 
@@ -281,8 +288,9 @@ class Compiler {
         } else if ($methodRef->isPrivate()) {
             /* not reached */
             $this->appendPrivateInterceptStmt($methodRef, $methodBuilder);
+        } else {
+            throw new LogicException('');
         }
-        throw new LogicException('');
     }
 
     /**
@@ -480,6 +488,30 @@ class Compiler {
             $methodBuilder->addStmt(new Node\Stmt\Return_(
                 $this->factory->var('res')
             ));
+        }
+    }
+
+    /**
+     * @param \ReflectionNamedType|\ReflectionUnionType|\ReflectionIntersectionType $typeRef
+     * @return string|\PhpParser\Node\UnionType|\PhpParser\Node\IntersectionType
+     */
+    protected function normalizeTypes($typeRef)
+        : string|Node\UnionType|Node\IntersectionType
+    {
+        if ($typeRef instanceof ReflectionNamedType) {
+            return ($typeRef->allowsNull() ? '?' : '') . $typeRef->getName();
+        } else {
+            $types = [];
+            foreach ($typeRef->getTypes() as $type) {
+                $types[] = BuilderHelpers::normalizeType($type->getName());
+            }
+            if ($typeRef instanceof ReflectionUnionType) {
+                return new Node\UnionType($types);
+            } else {
+                // @since PHP8.1
+                // ReflectionIntersectionType
+                return new Node\IntersectionType($types);
+            }
         }
     }
 

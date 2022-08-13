@@ -2,17 +2,19 @@
 
 require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'DoNotIntercept.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Attribute' . DIRECTORY_SEPARATOR . 'DoNotIntercept.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Attribute' . DIRECTORY_SEPARATOR . 'Intercepted.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Compiler' . DIRECTORY_SEPARATOR . 'Handler.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Visitor' . DIRECTORY_SEPARATOR . 'Interceptor.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Interceptable.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Intercepted.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Interceptor.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'UseIntercept.php';
 
 
 use Cwola\Interceptor;
 
-class TEST {
+class TEST implements Interceptor\Interceptable {
 
-    use Interceptor\Interceptable;
+    use Interceptor\UseIntercept;
 
     public function __construct() {
         $this->__addInterceptor(new TEST_INTERCEPT);
@@ -22,7 +24,7 @@ class TEST {
         echo 'TEST';
     }
 
-    #[Interceptor\DoNotIntercept]
+    #[Interceptor\Attribute\DoNotIntercept]
     public function test2() {
         echo 'TEST2';
     }
@@ -38,14 +40,29 @@ class TEST {
     private function test4(string $message) {
         echo $message . PHP_EOL;
     }
+
+    protected function test5(?string $message) :string|int {
+        echo $message . PHP_EOL;
+        return '';
+    }
+
+    protected function test6(string|int $message) :string|int|null {
+        echo $message . PHP_EOL;
+        return '';
+    }
+
+    protected function test7(?string $message) :?string {
+        echo $message . PHP_EOL;
+        return '';
+    }
 }
 
-class TEST_INTERCEPT implements Interceptor\Interceptor {
-    public function __enterMethod(string $name, ...$args): void {
+class TEST_INTERCEPT implements Interceptor\Visitor\Interceptor {
+    public function enterMethod(string $name, ...$args): void {
         echo '[ENTER] ' . $name . PHP_EOL;
     }
 
-    public function __leaveMethod(string $name, ...$args): void {
+    public function leaveMethod(string $name, ...$args): void {
         echo '[LEAVE] ' . $name . PHP_EOL;
     }
 }
