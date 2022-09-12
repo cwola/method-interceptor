@@ -16,9 +16,13 @@
     "homepage": "https://github.com/cwola/interceptor",
     "require": {
       "php": "^8.0",
-      "nikic/php-parser": "^4.0"
+      "nikic/php-parser": "^4.0",
+      "nikic/include-interceptor": "^0.1"
     },
     "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
         "psr-4": {
             "Cwola\\Interceptor\\": "src/"
         }

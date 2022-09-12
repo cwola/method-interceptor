@@ -19,8 +19,8 @@ composer require cwola/interceptor
 
 use Cwola\Interceptor;
 
-class Foo {
-    use Interceptor\Interceptable;
+class Foo implements Interceptor\Interceptable {
+    use Interceptor\UseIntercept;
 
     public function __construct() {
         $this->__addInterceptor(new InterceptTimer);
@@ -38,7 +38,7 @@ class Foo {
         );
     }
 
-    #[Interceptor\DoNotIntercept]
+    #[Interceptor\Attribute\DoNotIntercept]
     protected function bold(string $message) :string {
         return '**' . $message . '**';
     }
@@ -48,7 +48,7 @@ class Foo {
     }
 }
 
-class InterceptTimer implements Interceptor\Interceptor {
+class InterceptTimer implements Interceptor\Visitor\Interceptor {
     protected array $timers = [];
 
     public function enterMethod(string $name, ...$args) :void {
@@ -60,7 +60,7 @@ class InterceptTimer implements Interceptor\Interceptor {
     }
 }
 
-class InterceptGreet implements Interceptor\Interceptor {
+class InterceptGreet implements Interceptor\Visitor\Interceptor {
     public function enterMethod(string $name, ...$args) :void {
         echo 'ENTER : ' . $name . PHP_EOL;
     }

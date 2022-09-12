@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Cwola\Interceptor;
 
-use LogicException;
-use Cwola\Interceptor\Compiler\Handler as Compiler;
-
 trait UseIntercept {
 
     /**
@@ -52,28 +49,69 @@ trait UseIntercept {
 
     /**
      * @param void
-     * @return string newInstanceName
-     *
-     * @throws \LogicException
+     * @return bool
      */
     #[Attribute\DoNotIntercept]
-    public function intercept() :string {
-        $new = $this->__transformInstanceIntoInterceptable();
-        if ($new === null) {
-            throw new LogicException('');
-        }
-        return $new;
+    public function __enableIntercept() :bool {
+        $this->__interceptable = true;
+        return true;
     }
 
     /**
      * @param void
-     * @return string|null
-     *
-     * @throws \LogicException
+     * @return bool
      */
     #[Attribute\DoNotIntercept]
-    protected function __transformInstanceIntoInterceptable() :string|null {
-        $compiler = new Compiler($this);
-        return $compiler->compile();
+    public function __disableIntercept() :bool {
+        $this->__interceptable = false;
+        return true;
+    }
+
+    /**
+     * @param string $name
+     * @param ...$args
+     * @return void
+     */
+    #[Attribute\DoNotIntercept]
+    protected static function __onEnterStaticMethod(string $name, ...$args) :void {
+        foreach (static::$__staticInterceptors as $interceptor) {
+            $interceptor->enterMethod($name, ...$args);
+        }
+    }
+
+    /**
+     * @param string $name
+     * @param ...$args
+     * @return void
+     */
+    #[Attribute\DoNotIntercept]
+    protected static function __onLeaveStaticMethod(string $name, ...$args) :void {
+        foreach (static::$__staticInterceptors as $interceptor) {
+            $interceptor->leaveMethod($name, ...$args);
+        }
+    }
+
+    /**
+     * @param string $name
+     * @param ...$args
+     * @return void
+     */
+    #[Attribute\DoNotIntercept]
+    protected function __onEnterInstanceMethod(string $name, ...$args) :void {
+        foreach ($this->__instanceInterceptors as $interceptor) {
+            $interceptor->enterMethod($name, ...$args);
+        }
+    }
+
+    /**
+     * @param string $name
+     * @param ...$args
+     * @return void
+     */
+    #[Attribute\DoNotIntercept]
+    protected function __onLeaveInstanceMethod(string $name, ...$args) :void {
+        foreach ($this->__instanceInterceptors as $interceptor) {
+            $interceptor->leaveMethod($name, ...$args);
+        }
     }
 }

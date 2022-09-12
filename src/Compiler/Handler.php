@@ -11,47 +11,143 @@ use ReflectionUnionType;
 //@since PHP8.1
 //use ReflectionIntersectionType;
 use LogicException;
+use Exception;
+use RuntimeException;
+use PhpParser\ParserFactory;
+use PhpParser\Parser;
 use PhpParser\Node;
+use PhpParser\NodeTraverser;
+use PhpParser\NodeFinder;
 use PhpParser\BuilderFactory;
 use PhpParser\Builder;
 use PhpParser\BuilderHelpers;
+use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\PrettyPrinter\Standard as PrettyPrinter;
-use Cwola\Interceptor\Interceptable;
 use Cwola\Interceptor\Attribute;
 
 
 class Handler {
 
     /**
-     * @var \Cwola\Interceptor\Interceptable
+     * @var string
      */
-    protected Interceptable $class;
+    protected string $source;
+
+    /**
+     * @var string
+     */
+    protected string $error;
 
     /**
      * @var \PhpParser\BuilderFactory
      */
     protected BuilderFactory $factory;
 
-    /**
-     * @var \PhpParser\PrettyPrinterAbstract
-     */
-    protected \PhpParser\PrettyPrinterAbstract $printer;
-
 
     /**
-     * @param \Cwola\Interceptor\Interceptable $class
+     * @param string $source
      */
-    public function __construct(Interceptable $class) {
-        $this->class = $class;
+    public function __construct(string $source) {
+        $this->source = $source;
+        $this->error = '';
         $this->factory = new BuilderFactory;
-        $this->printer = new PrettyPrinter;
     }
 
     /**
      * @param void
-     * @return string|null
+     * @return string
      */
-    public function compile() :string|null {
+    public function getError() :string {
+        return $this->error;
+    }
+
+    /**
+     * @param void
+     * @return \PhpParser\Parser|false
+     */
+    protected function createParser() :Parser|false {
+        try {
+            $parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
+        } catch (Exception $e) {
+            $this->error = $e::class . ' : ' . $e->getMessage();
+            return false;
+        }
+        return $parser;
+    }
+
+    /**
+     * @param \PhpParser\Parser $parser
+     * @return \PhpParser\Node\Stmt[]|false
+     */
+    protected function parse(Parser $parser) :array|false {
+        try {
+            $ast = $parser->parse($this->source);
+            if ($ast === null) {
+                throw new RuntimeException('failed parse.');
+            }
+            $traverser = new NodeTraverser;
+            $traverser->addVisitor(new NameResolver);
+            $ast = $traverser->traverse($ast);
+        } catch (Exception $e) {
+            $this->error = $e::class . ' : ' . $e->getMessage();
+            return false;
+        }
+        return $ast;
+    }
+
+    /**
+     * @param \PhpParser\Node\Stmt[]|\PhpParser\Node\Stmt $stmt
+     * @param callable $filter
+     * @return \PhpParser\Node[]
+     */
+    protected function findByStatement(array|Node\Stmt $stmt, callable $filter) :array {
+        $nodeFinder = new NodeFinder;
+        return $nodeFinder->find($stmt, $filter);
+    }
+
+    /**
+     * @param \PhpParser\Node $node
+     * @return bool
+     */
+    public function isInterceptTargetClass(Node $node) :bool {
+        return $node instanceof Node\Stmt\Class_
+                && !empty($this->findByStatement($node, [$this, 'isInterceptAttribute']))
+        ;
+    }
+
+    /**
+     * @param \PhpParser\Node $node
+     * @return bool
+     */
+    public function isInterceptAttribute(Node $node) :bool {
+        return $node instanceof Node\Attribute
+                && $node->name->toString() === Attribute\Interceptable::class
+        ;
+    }
+
+
+    /**
+     * @param void
+     * @return string|null|false
+     */
+    public function compile() :string|null|false {
+        $this->error = '';
+        if (($parser = $this->createParser()) === false) {
+            return false;
+        }
+        if (($ast = $this->parse($parser)) === false) {
+            return false;
+        }
+        $targetClasses = $this->findByStatement($ast, [$this, 'isInterceptTargetClass']);
+        foreach ($targetClasses as $class) {
+            if (!$this->applyMethodIntercept($class)) {
+                return false;
+            }
+        }
+        return (new PrettyPrinter)->prettyPrintFile($ast);
+    }
+
+    protected function applyMethodIntercept() {
         $reflection = new ReflectionClass($this->class);
         foreach ($reflection->getAttributes(Attribute\Intercepted::class) as $attr) {
             return null;
