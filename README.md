@@ -81,7 +81,9 @@ $foo->run();
 //
 // [ENTER] : run
 // [ENTER] : message
+// [ENTER] : privateMessage
 // **Hello**
+// [LEAVE] : privateMessage
 // [LEAVE] : message
 // TIME : xxx
 // [LEAVE] : run
