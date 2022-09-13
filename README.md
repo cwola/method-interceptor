@@ -19,7 +19,8 @@ composer require cwola/interceptor
 
 use Cwola\Interceptor;
 
-class Foo implements Interceptor\Interceptable {
+#[Interceptor\Attribute\Interceptable]
+class Foo {
     use Interceptor\UseIntercept;
 
     public function __construct() {
@@ -70,9 +71,7 @@ class InterceptGreet implements Interceptor\Visitor\Interceptor {
     }
 }
 
-$foo = new ((new Foo)->intercept());
-// If you are using singleton instances:
-// $foo = ((Foo::getInstance(...params))->intercept())::getInstance(...params);
+$foo = new Foo;
 
 $foo->run();
 // output:
@@ -86,14 +85,6 @@ $foo->run();
 // TIME : xxx
 // [LEAVE] : run
 //
-
-$foo instanceof Foo;
-// true
-
-but,
-$origin = new Foo;
-$origin::class === $foo::class;
-// false
 
 ```
 

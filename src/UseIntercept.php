@@ -28,12 +28,11 @@ trait UseIntercept {
 
     /**
      * @param \Cwola\Interceptor\Visitor\Interceptor $interceptor
-     * @return static
+     * @return void
      */
     #[Attribute\DoNotIntercept]
-    public function __addInstanceInterceptor(Visitor\Interceptor $interceptor) :static {
+    public function __addInstanceInterceptor(Visitor\Interceptor $interceptor) :void {
         $this->__instanceInterceptors[] = $interceptor;
-        return $this;
     }
 
     /**
@@ -48,32 +47,12 @@ trait UseIntercept {
     }
 
     /**
-     * @param void
-     * @return bool
-     */
-    #[Attribute\DoNotIntercept]
-    public function __enableIntercept() :bool {
-        $this->__interceptable = true;
-        return true;
-    }
-
-    /**
-     * @param void
-     * @return bool
-     */
-    #[Attribute\DoNotIntercept]
-    public function __disableIntercept() :bool {
-        $this->__interceptable = false;
-        return true;
-    }
-
-    /**
      * @param string $name
      * @param ...$args
      * @return void
      */
     #[Attribute\DoNotIntercept]
-    protected static function __onEnterStaticMethod(string $name, ...$args) :void {
+    public static function __onEnterStaticMethod(string $name, ...$args) :void {
         foreach (static::$__staticInterceptors as $interceptor) {
             $interceptor->enterMethod($name, ...$args);
         }
@@ -85,7 +64,7 @@ trait UseIntercept {
      * @return void
      */
     #[Attribute\DoNotIntercept]
-    protected static function __onLeaveStaticMethod(string $name, ...$args) :void {
+    public static function __onLeaveStaticMethod(string $name, ...$args) :void {
         foreach (static::$__staticInterceptors as $interceptor) {
             $interceptor->leaveMethod($name, ...$args);
         }
@@ -97,7 +76,7 @@ trait UseIntercept {
      * @return void
      */
     #[Attribute\DoNotIntercept]
-    protected function __onEnterInstanceMethod(string $name, ...$args) :void {
+    public function __onEnterInstanceMethod(string $name, ...$args) :void {
         foreach ($this->__instanceInterceptors as $interceptor) {
             $interceptor->enterMethod($name, ...$args);
         }
@@ -109,7 +88,7 @@ trait UseIntercept {
      * @return void
      */
     #[Attribute\DoNotIntercept]
-    protected function __onLeaveInstanceMethod(string $name, ...$args) :void {
+    public function __onLeaveInstanceMethod(string $name, ...$args) :void {
         foreach ($this->__instanceInterceptors as $interceptor) {
             $interceptor->leaveMethod($name, ...$args);
         }

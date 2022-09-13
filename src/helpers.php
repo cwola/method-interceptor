@@ -17,3 +17,4 @@ if (!function_exists('applyMethodIntercept')) {
 }
 
 Engine::boot();
+Engine::setUp();

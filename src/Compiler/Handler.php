@@ -4,13 +4,6 @@ declare(strict_types=1);
 
 namespace Cwola\Interceptor\Compiler;
 
-use ReflectionClass;
-use ReflectionMethod;
-use ReflectionNamedType;
-use ReflectionUnionType;
-//@since PHP8.1
-//use ReflectionIntersectionType;
-use LogicException;
 use Exception;
 use RuntimeException;
 use PhpParser\ParserFactory;
@@ -19,11 +12,10 @@ use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeFinder;
 use PhpParser\BuilderFactory;
-use PhpParser\Builder;
-use PhpParser\BuilderHelpers;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\PrettyPrinter\Standard as PrettyPrinter;
 use Cwola\Interceptor\Attribute;
+use Cwola\Interceptor\Interceptable;
 
 
 class Handler {
@@ -59,6 +51,27 @@ class Handler {
      */
     public function getError() :string {
         return $this->error;
+    }
+
+    /**
+     * @param void
+     * @return string|null|false
+     */
+    public function compile() :string|null|false {
+        $this->error = '';
+        if (($parser = $this->createParser()) === false) {
+            return false;
+        }
+        if (($ast = $this->parse($parser)) === false) {
+            return false;
+        }
+        $targetClasses = $this->findByStatement($ast, [$this, 'isInterceptTargetClass']);
+        foreach ($targetClasses as $class) {
+            if (!$this->applyIntercept($class)) {
+                return false;
+            }
+        }
+        return (new PrettyPrinter)->prettyPrintFile($ast);
     }
 
     /**
@@ -119,529 +132,113 @@ class Handler {
      * @param \PhpParser\Node $node
      * @return bool
      */
+    public function isInterceptTargetClassMethod(Node $node) :bool {
+        return $node instanceof Node\Stmt\ClassMethod
+                && $node->name->toString() !== '__construct'
+                && empty($this->findByStatement($node, [$this, 'isDoNotInterceptAttribute']))
+        ;
+    }
+
+    /**
+     * @param \PhpParser\Node $node
+     * @return bool
+     */
     public function isInterceptAttribute(Node $node) :bool {
         return $node instanceof Node\Attribute
                 && $node->name->toString() === Attribute\Interceptable::class
         ;
     }
 
-
     /**
-     * @param void
-     * @return string|null|false
-     */
-    public function compile() :string|null|false {
-        $this->error = '';
-        if (($parser = $this->createParser()) === false) {
-            return false;
-        }
-        if (($ast = $this->parse($parser)) === false) {
-            return false;
-        }
-        $targetClasses = $this->findByStatement($ast, [$this, 'isInterceptTargetClass']);
-        foreach ($targetClasses as $class) {
-            if (!$this->applyMethodIntercept($class)) {
-                return false;
-            }
-        }
-        return (new PrettyPrinter)->prettyPrintFile($ast);
-    }
-
-    protected function applyMethodIntercept() {
-        $reflection = new ReflectionClass($this->class);
-        foreach ($reflection->getAttributes(Attribute\Intercepted::class) as $attr) {
-            return null;
-        }
-        if ($reflection->isFinal()) {
-            throw new LogicException('');
-        }
-
-        $namespace = $reflection->getNamespaceName();
-        $className = $reflection->getShortName();
-        $newClassName = $className . '_' . $this->signature($reflection);
-
-        $classBuilder = $this->createClassBuilder($newClassName, $className);
-        $this->appendClassMethods($reflection, $classBuilder);
-
-
-        $stmts = [];
-        if ($reflection->inNamespace()) {
-            $stmts[] = $this->factory->namespace($namespace)->getNode();
-        }
-        $stmts[] = $classBuilder->getNode();
-        $source = $this->toSourceString($stmts);
-
-        $path = __DIR__ . DIRECTORY_SEPARATOR . 'temp' . DIRECTORY_SEPARATOR . $newClassName . '.t.php';
-        \file_put_contents(
-            $path,
-            $source
-        );
-        \register_shutdown_function(function() use ($path) {
-            @\unlink($path);
-        });
-        require $path;
-        return $newClassName;
-    }
-
-    /**
-     * @param \ReflectionClass $classRef
-     * @return string
-     */
-    protected function signature(ReflectionClass $classRef) :string {
-        return \md5(
-            \uniqid(
-                $classRef->getNamespaceName() . '\\' . $classRef->getShortName(),
-                true
-            )
-        );
-    }
-
-    /**
-     * @param string $name
-     * @param string $parent
-     * @return \PhpParser\Builder\Class_
-     */
-    protected function createClassBuilder(string $name, string $parent) :Builder\Class_ {
-        $class = $this->factory->class($name)
-                        ->extend($parent)
-                        ->addAttribute(
-                            $this->factory->attribute(Attribute\Intercepted::class)
-                        );
-        return $class;
-    }
-
-    /**
-     * @param string $name
-     * @return \PhpParser\Builder\Method
-     */
-    protected function createMethodBuilder(string $name) :Builder\Method {
-        $method = $this->factory->method($name);
-        return $method;
-    }
-
-    /**
-     * @param \ReflectionClass $classRef
-     * @param \PhpParser\Builder\Class_ $class
-     * @return void
-     */
-    protected function appendClassMethods(ReflectionClass $classRef, Builder\Class_ $class) :void {
-        foreach ($classRef->getMethods() as $methodRef) {
-            if (!$this->isInterceptableMethod($methodRef)) {
-                continue;
-            }
-            if ($this->isIgnoreMethod($methodRef)) {
-                continue;
-            }
-
-            $this->appendClassMethod($methodRef, $class);
-        }
-    }
-
-    /**
-     * @param \ReflectionMethod $methodRef
+     * @param \PhpParser\Node $node
      * @return bool
      */
-    protected function isInterceptableMethod(ReflectionMethod $methodRef) :bool {
-        return !(
-            $methodRef->name == '__construct'
-            || $methodRef->isPrivate()
-            || $methodRef->isFinal()
-        );
+    public function isDoNotInterceptAttribute(Node $node) :bool {
+        return $node instanceof Node\Attribute
+                && $node->name->toString() === Attribute\DoNotIntercept::class
+        ;
     }
 
     /**
-     * @param \ReflectionMethod $methodRef
+     * @param \PhpParser\Node\Stmt\Class_ $class
      * @return bool
      */
-    protected function isIgnoreMethod(ReflectionMethod $methodRef) :bool {
-        foreach ($methodRef->getAttributes(Attribute\DoNotIntercept::class) as $attrRef) {
-            if ($attrRef->newInstance() instanceof Attribute\DoNotIntercept) {
-                return true;
+    protected function applyIntercept(Node\Stmt\Class_ $class) :bool {
+        $this->applyMethodIntercept($class);
+        return true;
+    }
+
+    /**
+     * @param \PhpParser\Node\Stmt\Class_ $class
+     * @return bool
+     */
+    protected function applyMethodIntercept(Node\Stmt\Class_ $class) :bool {
+        /**
+         * @var \PhpParser\Node\Stmt\ClassMethod $method
+         */
+        foreach ($this->findByStatement($class, [$this, 'isInterceptTargetClassMethod']) as $method) {
+            if ($method->isStatic()) {
+                $this->appendStaticInterceptStmt($method);
+            } else {
+                $this->appendInstanceInterceptStmt($method);
             }
         }
-        return false;
+        return true;
     }
 
     /**
-     * @param \ReflectionMethod $methodRef
-     * @param \PhpParser\Builder\Class_ $class
+     * @param \PhpParser\Node\Stmt\ClassMethod $method
      * @return void
      */
-    protected function appendClassMethod(ReflectionMethod $methodRef, Builder\Class_ $class) :void {
-        $class->addStmt($this->buildClassMethod($methodRef));
+    protected function appendStaticInterceptStmt(Node\Stmt\ClassMethod $method) :void {
+        $args = [$method->name->toString(), ...$this->collectArgs($method)];
+        $onEnter = $this->staticCall('static', '__onEnterStaticMethod', $args);
+        $onLeave = $this->staticCall('static', '__onLeaveStaticMethod', $args);
+        $this->appendInterceptStmt($method, $onEnter, $onLeave);
     }
 
     /**
-     * @param \ReflectionMethod $methodRef
-     * @return \PhpParser\Builder\Method
-     */
-    protected function buildClassMethod(ReflectionMethod $methodRef) :Builder\Method {
-        $methodBuilder = $this->createMethodBuilder($methodRef->name);
-        $this->appendAttributes($methodRef, $methodBuilder);
-        $this->setMethodSignature($methodRef, $methodBuilder);
-        $this->appendParams($methodRef, $methodBuilder);
-        $this->appendReturns($methodRef, $methodBuilder);
-        $this->appendMethodStmt($methodRef, $methodBuilder);
-        return $methodBuilder;
-    }
-
-    /**
-     * @param \ReflectionMethod $methodRef
-     * @param \PhpParser\Builder\Method $methodBuilder
+     * @param \PhpParser\Node\Stmt\ClassMethod $method
      * @return void
      */
-    protected function appendAttributes(ReflectionMethod $methodRef, Builder\Method $methodBuilder) :void {
-        foreach ($methodRef->getAttributes() as $attrRef) {
-            $methodBuilder->addAttribute(
-                $this->factory->attribute(
-                    $attrRef->getName(),
-                    $attrRef->getArguments()
-                )
-            );
-        }
+    protected function appendInstanceInterceptStmt(Node\Stmt\ClassMethod $method) :void {
+        $args = [$method->name->toString(), ...$this->collectArgs($method)];
+        $onEnter = $this->methodCall('this', '__onEnterInstanceMethod', $args);
+        $onLeave = $this->methodCall('this', '__onLeaveInstanceMethod', $args);
+        $this->appendInterceptStmt($method, $onEnter, $onLeave);
     }
 
     /**
-     * @param \ReflectionMethod $methodRef
-     * @param \PhpParser\Builder\Method $methodBuilder
-     * @return void
-     */
-    protected function appendParams(ReflectionMethod $methodRef, Builder\Method $methodBuilder) :void {
-        foreach ($methodRef->getParameters() as $paramRef) {
-            $param = $this->factory->param($paramRef->name);
-
-            if ($paramRef->isDefaultValueAvailable()) {
-                $param->setDefault($paramRef->getDefaultValue());
-            }
-
-            if ($paramRef->isPassedByReference()) {
-                $param->makeByRef();
-            }
-
-            if ($paramRef->isVariadic()) {
-                $param->makeVariadic();
-            }
-
-            if ($paramRef->hasType()) {
-                $param->setType(
-                    $this->normalizeTypes($paramRef->getType())
-                );
-            }
-            $methodBuilder->addParam($param);
-        }
-    }
-
-    /**
-     * @param \ReflectionMethod $methodRef
-     * @param \PhpParser\Builder\Method $methodBuilder
-     * @return void
-     */
-    protected function appendReturns(ReflectionMethod $methodRef, Builder\Method $methodBuilder) :void {
-        if ($methodRef->returnsReference()) {
-            $methodBuilder->makeReturnByRef();
-        }
-        if ($methodRef->hasReturnType()) {
-            $methodBuilder->setReturnType(
-                $this->normalizeTypes($methodRef->getReturnType())
-            );
-        }
-    }
-
-    /**
-     * @param \ReflectionMethod $methodRef
-     * @param \PhpParser\Builder\Method $methodBuilder
-     * @return void
-     */
-    protected function setMethodSignature(ReflectionMethod $methodRef, Builder\Method $methodBuilder) :void {
-        if ($methodRef->isStatic()) {
-            $methodBuilder->makeStatic();
-        }
-        if ($methodRef->isPublic()) {
-            $methodBuilder->makePublic();
-        } else if ($methodRef->isProtected()) {
-            $methodBuilder->makeProtected();
-        } else if ($methodRef->isPrivate()) {
-            $methodBuilder->makePrivate();
-        }
-    }
-
-    /**
-     * @param \ReflectionMethod $methodRef
-     * @param \PhpParser\Builder\Method $methodBuilder
-     * @return void
-     * @throws \LogicException
-     */
-    protected function appendMethodStmt(ReflectionMethod $methodRef, Builder\Method $methodBuilder) :void {
-        // STATIC.
-        if ($methodRef->isStatic()) {
-            $this->appendStaticInterceptStmt($methodRef, $methodBuilder);
-        }
-        // INSTANCE.
-        else if ($methodRef->isPublic()) {
-            $this->appendPublicInterceptStmt($methodRef, $methodBuilder);
-        } else if ($methodRef->isProtected()) {
-            $this->appendProtectedInterceptStmt($methodRef, $methodBuilder);
-        } else if ($methodRef->isPrivate()) {
-            /* not reached */
-            $this->appendPrivateInterceptStmt($methodRef, $methodBuilder);
-        } else {
-            throw new LogicException('');
-        }
-    }
-
-    /**
-     * @param \ReflectionMethod $methodRef
-     * @param \PhpParser\Builder\Method $methodBuilder
-     * @return void
-     */
-    protected function appendStaticInterceptStmt(ReflectionMethod $methodRef, Builder\Method $methodBuilder) :void {
-        $args = $this->collectArgs($methodBuilder);
-        $parentMethodCaller = $this->staticCall('parent', $methodRef->name, $args);
-
-        $interceptors = $this->staticPropertyFetch('static', '__staticInterceptors');
-        $onEnter = $this->onEnterStmt(
-            $interceptors,
-            [
-                new Node\Arg(new Node\Scalar\String_($methodRef->name)),
-                ...$args
-            ]
-        );
-        $onLeave = $this->onLeaveStmt(
-            $interceptors,
-            [
-                new Node\Arg(new Node\Scalar\String_($methodRef->name)),
-                ...$args
-            ]
-        );
-
-        $this->appendInterceptStmt(
-            $methodRef, $methodBuilder, $parentMethodCaller, $onEnter, $onLeave
-        );
-    }
-
-    /**
-     * @param \ReflectionMethod $methodRef
-     * @param \PhpParser\Builder\Method $methodBuilder
-     * @return void
-     */
-    protected function appendPublicInterceptStmt(ReflectionMethod $methodRef, Builder\Method $methodBuilder) :void {
-        $args = $this->collectArgs($methodBuilder);
-        $parentMethodCaller = $this->staticCall('parent', $methodRef->name, $args);
-
-        $interceptors = $this->propertyFetch('this', '__instanceInterceptors');
-        $onEnter = $this->onEnterStmt(
-            $interceptors,
-            [
-                new Node\Arg(new Node\Scalar\String_($methodRef->name)),
-                ...$args
-            ]
-        );
-        $onLeave = $this->onLeaveStmt(
-            $interceptors,
-            [
-                new Node\Arg(new Node\Scalar\String_($methodRef->name)),
-                ...$args
-            ]
-        );
-
-        $this->appendInterceptStmt(
-            $methodRef, $methodBuilder, $parentMethodCaller, $onEnter, $onLeave
-        );
-    }
-
-    /**
-     * @param \ReflectionMethod $methodRef
-     * @param \PhpParser\Builder\Method $methodBuilder
-     * @return void
-     */
-    protected function appendProtectedInterceptStmt(ReflectionMethod $methodRef, Builder\Method $methodBuilder) :void {
-        $this->appendPublicInterceptStmt($methodRef, $methodBuilder);
-    }
-
-    /**
-     * @param \ReflectionMethod $methodRef
-     * @param \PhpParser\Builder\Method $methodBuilder
-     * @return void
-     */
-    protected function appendPrivateInterceptStmt(ReflectionMethod $methodRef, Builder\Method $methodBuilder) :void {
-        // STMT : $reflection = new \ReflectionClass($this);
-        $methodBuilder->addStmt(new Node\Stmt\Expression(
-            new Node\Expr\Assign(
-                $this->factory->var('reflection'),
-                $this->factory->new(
-                    '\\ReflectionClass',
-                    [new Node\Arg(new Node\Expr\Variable('this'))]
-                )
-            )
-        ))
-        // STMT : $parent = $reflection->getParentClass();
-        ->addStmt(new Node\Stmt\Expression(
-            new Node\Expr\Assign(
-                $this->factory->var('parent'),
-                $this->factory->methodCall(
-                    $this->factory->var('reflection'),
-                    'getParentClass'
-                ),
-            )
-        ))
-        // STMT : $method = $parent->getMethod({$method->name});
-        ->addStmt(new Node\Stmt\Expression(
-            new Node\Expr\Assign(
-                $this->factory->var('method'),
-                $this->factory->methodCall(
-                $this->factory->var('parent'),
-                    'getMethod',
-                    [new Node\Arg(new Node\Scalar\String_($methodRef->name))]
-                )
-            )
-        ))
-        // STMT : $method->setAccessible(true);
-        ->addStmt(new Node\Stmt\Expression(
-            $this->factory->methodCall(
-                $this->factory->var('method'),
-                'setAccessible',
-                [$this->factory->constFetch('true')]
-            )
-        ));
-
-        $args = $this->collectArgs($methodBuilder);
-        $parentMethodCaller = $this->methodCall(
-            'method',
-            'invoke', 
-            [
-                new Node\Arg($this->factory->var('parent')),
-                ...$args
-            ]
-        );
-
-        $interceptors = $this->propertyFetch('this', '__instanceInterceptors');
-        $onEnter = $this->onEnterStmt(
-            $interceptors,
-            [
-                new Node\Arg(new Node\Scalar\String_($methodRef->name)),
-                ...$args
-            ]
-        );
-        $onLeave = $this->onLeaveStmt(
-            $interceptors,
-            [
-                new Node\Arg(new Node\Scalar\String_($methodRef->name)),
-                ...$args
-            ]
-        );
-
-        $this->appendInterceptStmt(
-            $methodRef, $methodBuilder, $parentMethodCaller, $onEnter, $onLeave
-        );
-    }
-
-    /**
-     * @param \ReflectionMethod $methodRef
-     * @param \PhpParser\Builder\Method $methodBuilder
-     * @param \PhpParser\Node\Expr $parentMethodCaller
-     * @param \PhpParser\Node\Stmt $onEnter
-     * @param \PhpParser\Node\Stmt $onLeave
+     * @param \PhpParser\Node\Stmt\ClassMethod $method
+     * @param \PhpParser\Node\Stmt\Expression $onEnter
+     * @param \PhpParser\Node\Stmt\Expression $onLeave
      * @return void
      */
     protected function appendInterceptStmt(
-        ReflectionMethod $methodRef,
-        Builder\Method $methodBuilder,
-        Node\Expr $parentMethodCaller,
-        Node\Stmt $onEnter,
-        Node\Stmt $onLeave
+        Node\Stmt\ClassMethod $method,
+        Node\Stmt\Expression $onEnter,
+        Node\Stmt\Expression $onLeave
     ) : void {
-        $methodBuilder
-            // STMT :   foreach ((static::$__staticInterceptors|$this->__instanceInterceptors) as $interceptor) {
-            //              $interceptor->enterMethod({$this->name}, ...$args);
-            //          }
-            ->addStmt($onEnter)
-            // STMT :   try {
-            //              $res = ($method->invoke($this, ...$args)|parent::{$method->name}(...$args));
-            //          } catch (\Throwable $e) {
-            //              throw $e;
-            //          } finally {
-            //              foreach ((static::$__staticInterceptors|$this->__instanceInterceptors) as $interceptor) {
-            //                  $interceptor->leaveMethod({$this->name}, ...$args);
-            //              }
-            //          }
-            ->addStmt(new Node\Stmt\TryCatch(
-                [new Node\Stmt\Expression(
-                    new Node\Expr\Assign(
-                        $this->factory->var('res'),
-                        $parentMethodCaller
-                    )
-                )],
-                [new Node\Stmt\Catch_(
-                    [new Node\Name\FullyQualified('Throwable')],
-                    $this->factory->var('e'),
-                    [new Node\Stmt\Throw_($this->factory->var('e'))]
-                )],
-                new Node\Stmt\Finally_([$onLeave])
-            ))
-        ;
-        if (!$methodRef->hasReturnType() || (string)$methodRef->getReturnType() !== 'void') {
-            // STMT : return $res;
-            $methodBuilder->addStmt(new Node\Stmt\Return_(
-                $this->factory->var('res')
-            ));
-        }
-    }
-
-    /**
-     * @param \ReflectionNamedType|\ReflectionUnionType|\ReflectionIntersectionType $typeRef
-     * @return string|\PhpParser\Node\UnionType|\PhpParser\Node\IntersectionType
-     */
-    protected function normalizeTypes($typeRef)
-        : string|Node\UnionType|Node\IntersectionType
-    {
-        if ($typeRef instanceof ReflectionNamedType) {
-            return ($typeRef->allowsNull() ? '?' : '') . $typeRef->getName();
-        } else {
-            $types = [];
-            foreach ($typeRef->getTypes() as $type) {
-                $types[] = BuilderHelpers::normalizeType($type->getName());
+        $newStmts = [$onEnter];
+        foreach ($method->stmts as $stmt) {
+            if ($stmt instanceof Node\Stmt\Return_) {
+                $newStmts[] = $onLeave;
             }
-            if ($typeRef instanceof ReflectionUnionType) {
-                return new Node\UnionType($types);
-            } else {
-                // @since PHP8.1
-                // ReflectionIntersectionType
-                return new Node\IntersectionType($types);
-            }
+            $newStmts[] = $stmt;
         }
+        if (!($newStmts[\count($newStmts) - 1] instanceof Node\Stmt\Return_)) {
+            $newStmts[] = $onLeave;
+        }
+        $method->stmts = $newStmts;
     }
 
     /**
-     * @param string $class
-     * @param string $property
-     * @return Node\Expr\StaticPropertyFetch
-     */
-    protected function staticPropertyFetch(string $class, string $property) :Node\Expr\StaticPropertyFetch {
-        return new Node\Expr\StaticPropertyFetch(
-            new Node\Name($class),
-            new Node\VarLikeIdentifier($property)
-        );
-    }
-
-    /**
-     * @param string $instance
-     * @param string $property
-     * @return Node\Expr\PropertyFetch
-     */
-    protected function propertyFetch(string $instance, string $name) :Node\Expr\PropertyFetch {
-        return $this->factory->propertyFetch(
-            $this->factory->var($instance),
-            $name
-        );
-    }
-
-    /**
-     * @param \PhpParser\Builder\Method $methodBuilder
+     * @param \PhpParser\Node\Stmt\ClassMethod $method
      * @return \PhpParser\Node\Arg[]
      */
-    protected function collectArgs(Builder\Method $methodBuilder) :array {
+    protected function collectArgs(Node\Stmt\ClassMethod $method) :array {
         $args = [];
-        foreach ($methodBuilder->getNode()->getParams() as $param) {
+        foreach ($method->getParams() as $param) {
             $args[] = new Node\Arg($param->var);
         }
         return $args;
@@ -651,87 +248,27 @@ class Handler {
      * @param string $class
      * @param string $methodName
      * @param \PhpParser\Node\Arg[] $args
-     * @return \PhpParser\Node\Expr\StaticCall
+     * @return \PhpParser\Node\Stmt\Expression
      */
-    protected function staticCall(string $class, string $methodName, array $args) :Node\Expr\StaticCall {
-        return $this->factory->staticCall(
+    protected function staticCall(string $class, string $methodName, array $args) :Node\Stmt\Expression {
+        return new Node\Stmt\Expression($this->factory->staticCall(
             $class,
             $methodName,
             $args
-        );
+        ));
     }
 
     /**
      * @param string $instance
      * @param string $methodName
      * @param \PhpParser\Node\Arg[] $args
-     * @return \PhpParser\Node\Expr\MethodCall
+     * @return \PhpParser\Node\Stmt\Expression
      */
-    protected function methodCall(string $instance, string $methodName, array $args) :Node\Expr\MethodCall {
-        return $this->factory->methodCall(
+    protected function methodCall(string $instance, string $methodName, array $args) :Node\Stmt\Expression {
+        return new Node\Stmt\Expression($this->factory->methodCall(
             $this->factory->var($instance),
             $methodName,
             $args
-        );
-    }
-
-    /**
-     * @param \PhpParser\Node\Expr $iterator
-     * @param string $as
-     * @param \PhpParser\Node\Stmt[] $stmts
-     * @return \PhpParser\Node\Stmt\Foreach_
-     */
-    protected function each(Node\Expr $iterator, string $as, array $stmts) :Node\Stmt\Foreach_ {
-        return new Node\Stmt\Foreach_(
-            $iterator,
-            $this->factory->var($as),
-            ['stmts' => $stmts]
-        );
-    }
-
-    /**
-     * @param \PhpParser\Node\Expr $interceptors
-     * @param \PhpParser\Node\Arg[] $args
-     * @return \PhpParser\Node\Stmt
-     */
-    protected function onEnterStmt(Node\Expr $interceptors, array $args) :Node\Stmt {
-        return $this->each(
-            $interceptors,
-            'interceptor',
-            [new Node\Stmt\Expression(
-                $this->methodCall(
-                    'interceptor',
-                    'enterMethod',
-                    $args
-                )
-            )]
-        );
-    }
-
-    /**
-     * @param \PhpParser\Node\Expr $interceptors
-     * @param \PhpParser\Node\Arg[] $args
-     * @return \PhpParser\Node\Stmt
-     */
-    protected function onLeaveStmt(Node\Expr $interceptors, array $args) :Node\Stmt {
-        return $this->each(
-            $interceptors,
-            'interceptor',
-            [new Node\Stmt\Expression(
-                $this->methodCall(
-                    'interceptor',
-                    'leaveMethod',
-                    $args
-                )
-            )]
-        );
-    }
-
-    /**
-     * @param \PhpParser\Node\Stmt[] $stmts
-     * @return string
-     */
-    protected function toSourceString(array $stmts) :string {
-        return $this->printer->prettyPrintFile($stmts);
+        ));
     }
 }

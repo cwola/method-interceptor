@@ -1,0 +1,84 @@
+<?php
+
+require __DIR__ . \DIRECTORY_SEPARATOR . 'vendor' . \DIRECTORY_SEPARATOR . 'autoload.php';
+use Cwola\Interceptor;
+#[\Cwola\Interceptor\Attribute\Interceptable]
+abstract class T
+{
+    public function test()
+    {
+        $this->__onEnterInstanceMethod('test');
+        echo 'T';
+        $this->__onLeaveInstanceMethod('test');
+    }
+}
+#[\Cwola\Interceptor\Attribute\Interceptable]
+class TEST extends \T
+{
+    use \Cwola\Interceptor\UseIntercept;
+    public function __construct()
+    {
+        $this->__addInterceptor(new \TEST_INTERCEPT());
+    }
+    public function test()
+    {
+        $this->__onEnterInstanceMethod('test');
+        echo 'TEST';
+        $this->__onLeaveInstanceMethod('test');
+    }
+    #[\Cwola\Interceptor\Attribute\DoNotIntercept]
+    public function test2()
+    {
+        echo 'TEST2';
+    }
+    public function test3(int &$b = \null)
+    {
+        $this->__onEnterInstanceMethod('test3', $b);
+        $this->message();
+        $this->__onLeaveInstanceMethod('test3', $b);
+    }
+    protected function message()
+    {
+        $this->__onEnterInstanceMethod('message');
+        $this->test4('Hello');
+        $this->__onLeaveInstanceMethod('message');
+    }
+    private function test4(string $message)
+    {
+        $this->__onEnterInstanceMethod('test4', $message);
+        echo $message . \PHP_EOL;
+        $this->__onLeaveInstanceMethod('test4', $message);
+    }
+    protected function test5(?string $message) : string|int
+    {
+        $this->__onEnterInstanceMethod('test5', $message);
+        echo $message . \PHP_EOL;
+        $this->__onLeaveInstanceMethod('test5', $message);
+        return '';
+    }
+    protected function test6(string|int $message) : string|int|null
+    {
+        $this->__onEnterInstanceMethod('test6', $message);
+        echo $message . \PHP_EOL;
+        $this->__onLeaveInstanceMethod('test6', $message);
+        return '';
+    }
+    protected function test7(?string $message) : ?string
+    {
+        $this->__onEnterInstanceMethod('test7', $message);
+        echo $message . \PHP_EOL;
+        $this->__onLeaveInstanceMethod('test7', $message);
+        return '';
+    }
+}
+class TEST_INTERCEPT implements \Cwola\Interceptor\Visitor\Interceptor
+{
+    public function enterMethod(string $name, ...$args) : void
+    {
+        echo '[ENTER] ' . $name . \PHP_EOL;
+    }
+    public function leaveMethod(string $name, ...$args) : void
+    {
+        echo '[LEAVE] ' . $name . \PHP_EOL;
+    }
+}
