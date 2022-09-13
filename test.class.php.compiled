@@ -71,7 +71,7 @@ class TEST extends \T
         return '';
     }
 }
-class TEST_INTERCEPT implements \Cwola\MethodInterceptor\Visitor\Interceptor
+class TEST_INTERCEPT implements \Cwola\MethodInterceptor\Contracts\Visitor
 {
     public function enterMethod(string $name, ...$args) : void
     {

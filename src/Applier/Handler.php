@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Cwola\MethodInterceptor\Applier;
 
+use Cwola\MethodInterceptor\Contracts\Handler as IHandler;
 use Cwola\MethodInterceptor\Compiler\Handler as Compiler;
 
-class Handler {
+class Handler implements IHandler {
 
     /**
      * @var string
@@ -25,13 +26,13 @@ class Handler {
      * @param void
      * @return string|false
      */
-    public function apply() :string|false {
+    public function handle() :string|false {
         $this->error = '';
         if (($source = $this->getContents($this->filepath)) === false) {
             return false;
         };
         $compiler = new Compiler($source);
-        if (($compiled = $compiler->compile()) === false) {
+        if (($compiled = $compiler->handle()) === false) {
             $this->error = \sprintf('RuntimeException : %s.', $compiler->getError());
             return false;
         }

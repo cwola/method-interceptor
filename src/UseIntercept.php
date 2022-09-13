@@ -7,42 +7,48 @@ namespace Cwola\MethodInterceptor;
 trait UseIntercept {
 
     /**
-     * @var \Cwola\MethodInterceptor\Visitor\Interceptor[]
+     * @var \Cwola\MethodInterceptor\Contracts\Visitor[]
      */
     protected static array $__staticInterceptors = [];
 
     /**
-     * @var \Cwola\MethodInterceptor\Visitor\Interceptor[]
+     * @var \Cwola\MethodInterceptor\Contracts\Visitor[]
      */
     protected array $__instanceInterceptors = [];
 
 
     /**
-     * @param \Cwola\MethodInterceptor\Visitor\Interceptor $interceptor
+     * @param \Cwola\MethodInterceptor\Contracts\Visitor $interceptor
+     * @param \Cwola\MethodInterceptor\Contracts\Filter $filter [optional]
      * @return void
      */
-    #[Attribute\DoNotIntercept]
-    public static function __addStaticInterceptor(Visitor\Interceptor $interceptor) :void {
-        static::$__staticInterceptors[] = $interceptor;
+    public static function __addStaticInterceptor(Contracts\Visitor $interceptor, Contracts\Filter $filter = null) :void {
+        static::$__staticInterceptors[] = [
+            'interceptor' => $interceptor,
+            'filter' => $filter ?? new Filter\Accept
+        ];
     }
 
     /**
-     * @param \Cwola\MethodInterceptor\Visitor\Interceptor $interceptor
+     * @param \Cwola\MethodInterceptor\Contracts\Visitor $interceptor
+     * @param \Cwola\MethodInterceptor\Contracts\Filter $filter [optional]
      * @return void
      */
-    #[Attribute\DoNotIntercept]
-    public function __addInstanceInterceptor(Visitor\Interceptor $interceptor) :void {
-        $this->__instanceInterceptors[] = $interceptor;
+    public function __addInstanceInterceptor(Contracts\Visitor $interceptor, Contracts\Filter $filter = null) :void {
+        $this->__instanceInterceptors[] = [
+            'interceptor' => $interceptor,
+            'filter' => $filter ?? new Filter\Accept
+        ];
     }
 
     /**
-     * @param \Cwola\MethodInterceptor\Visitor\Interceptor $interceptor
+     * @param \Cwola\MethodInterceptor\Contracts\Visitor $interceptor
+     * @param \Cwola\MethodInterceptor\Contracts\Filter $filter [optional]
      * @return static
      */
-    #[Attribute\DoNotIntercept]
-    public function __addInterceptor(Visitor\Interceptor $interceptor) :static {
-        static::__addStaticInterceptor($interceptor);
-        $this->__addInstanceInterceptor($interceptor);
+    public function __addInterceptor(Contracts\Visitor $interceptor, Contracts\Filter $filter = null) :static {
+        static::__addStaticInterceptor($interceptor, $filter);
+        $this->__addInstanceInterceptor($interceptor, $filter);
         return $this;
     }
 
@@ -51,10 +57,11 @@ trait UseIntercept {
      * @param ...$args
      * @return void
      */
-    #[Attribute\DoNotIntercept]
     public static function __onEnterStaticMethod(string $name, ...$args) :void {
         foreach (static::$__staticInterceptors as $interceptor) {
-            $interceptor->enterMethod($name, ...$args);
+            if ($interceptor['filter']->test($name, ...$args)) {
+                $interceptor['interceptor']->enterMethod($name, ...$args);
+            }
         }
     }
 
@@ -63,10 +70,11 @@ trait UseIntercept {
      * @param ...$args
      * @return void
      */
-    #[Attribute\DoNotIntercept]
     public static function __onLeaveStaticMethod(string $name, ...$args) :void {
         foreach (static::$__staticInterceptors as $interceptor) {
-            $interceptor->leaveMethod($name, ...$args);
+            if ($interceptor['filter']->test($name, ...$args)) {
+                $interceptor['interceptor']->leaveMethod($name, ...$args);
+            }
         }
     }
 
@@ -75,10 +83,11 @@ trait UseIntercept {
      * @param ...$args
      * @return void
      */
-    #[Attribute\DoNotIntercept]
     public function __onEnterInstanceMethod(string $name, ...$args) :void {
         foreach ($this->__instanceInterceptors as $interceptor) {
-            $interceptor->enterMethod($name, ...$args);
+            if ($interceptor['filter']->test($name, ...$args)) {
+                $interceptor['interceptor']->enterMethod($name, ...$args);
+            }
         }
     }
 
@@ -87,10 +96,11 @@ trait UseIntercept {
      * @param ...$args
      * @return void
      */
-    #[Attribute\DoNotIntercept]
     public function __onLeaveInstanceMethod(string $name, ...$args) :void {
         foreach ($this->__instanceInterceptors as $interceptor) {
-            $interceptor->leaveMethod($name, ...$args);
+            if ($interceptor['filter']->test($name, ...$args)) {
+                $interceptor['interceptor']->leaveMethod($name, ...$args);
+            }
         }
     }
 }

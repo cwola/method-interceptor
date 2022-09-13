@@ -20,7 +20,7 @@ class Foo {
     use MethodInterceptor\UseIntercept;
 
     public function __construct() {
-        $this->__addInterceptor(new InterceptTimer);
+        $this->__addInterceptor(new InterceptTimer, new FilterRunOnly);
         $this->__addInterceptor(new InterceptGreet);
     }
 
@@ -45,7 +45,7 @@ class Foo {
     }
 }
 
-class InterceptTimer implements MethodInterceptor\Visitor\Interceptor {
+class InterceptTimer implements MethodInterceptor\Contracts\Visitor {
     protected array $timers = [];
 
     public function enterMethod(string $name, ...$args) :void {
@@ -57,13 +57,19 @@ class InterceptTimer implements MethodInterceptor\Visitor\Interceptor {
     }
 }
 
-class InterceptGreet implements MethodInterceptor\Visitor\Interceptor {
+class InterceptGreet implements MethodInterceptor\Contracts\Visitor {
     public function enterMethod(string $name, ...$args) :void {
         echo 'ENTER : ' . $name . PHP_EOL;
     }
 
     public function leaveMethod(string $name, ...$args) :void {
         echo 'LEAVE : ' . $name . PHP_EOL;
+    }
+}
+
+class FilterRunOnly implements MethodInterceptor\Contracts\Filter {
+    public function test(string $name, ...$args) :bool {
+        return $name === 'run';
     }
 }
 
@@ -76,7 +82,6 @@ $foo->run();
 // [ENTER] : run
 // [ENTER] : message
 // **Hello**
-// TIME : xxx
 // [LEAVE] : message
 // TIME : xxx
 // [LEAVE] : run

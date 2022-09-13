@@ -12,7 +12,7 @@ if (!function_exists('applyMethodIntercept')) {
      */
     function applyMethodIntercept(string $path) :string|false {
         $applier = new Applier($path);
-        return $applier->apply();
+        return $applier->handle();
     }
 }
 

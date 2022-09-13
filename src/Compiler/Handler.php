@@ -14,10 +14,11 @@ use PhpParser\NodeFinder;
 use PhpParser\BuilderFactory;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\PrettyPrinter\Standard as PrettyPrinter;
+use Cwola\MethodInterceptor\Contracts\Handler as IHandler;
 use Cwola\MethodInterceptor\Attribute;
 
 
-class Handler {
+class Handler implements IHandler {
 
     /**
      * @var string
@@ -56,7 +57,7 @@ class Handler {
      * @param void
      * @return string|false
      */
-    public function compile() :string|false {
+    public function handle() :string|false {
         $this->error = '';
         if (($parser = $this->createParser()) === false) {
             return false;

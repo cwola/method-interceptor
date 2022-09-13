@@ -56,7 +56,7 @@ class TEST extends T {
     }
 }
 
-class TEST_INTERCEPT implements MethodInterceptor\Visitor\Interceptor {
+class TEST_INTERCEPT implements MethodInterceptor\Contracts\Visitor {
     public function enterMethod(string $name, ...$args): void {
         echo '[ENTER] ' . $name . PHP_EOL;
     }
