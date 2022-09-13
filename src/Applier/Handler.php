@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Cwola\Interceptor\Applier;
+namespace Cwola\MethodInterceptor\Applier;
 
-use Cwola\Interceptor\Compiler\Handler as Compiler;
+use Cwola\MethodInterceptor\Compiler\Handler as Compiler;
 
 class Handler {
 

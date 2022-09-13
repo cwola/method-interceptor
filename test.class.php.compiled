@@ -1,8 +1,8 @@
 <?php
 
 require __DIR__ . \DIRECTORY_SEPARATOR . 'vendor' . \DIRECTORY_SEPARATOR . 'autoload.php';
-use Cwola\Interceptor;
-#[\Cwola\Interceptor\Attribute\Interceptable]
+use Cwola\MethodInterceptor;
+#[\Cwola\MethodInterceptor\Attribute\Interceptable]
 abstract class T
 {
     public function test()
@@ -12,10 +12,10 @@ abstract class T
         $this->__onLeaveInstanceMethod('test');
     }
 }
-#[\Cwola\Interceptor\Attribute\Interceptable]
+#[\Cwola\MethodInterceptor\Attribute\Interceptable]
 class TEST extends \T
 {
-    use \Cwola\Interceptor\UseIntercept;
+    use \Cwola\MethodInterceptor\UseIntercept;
     public function __construct()
     {
         $this->__addInterceptor(new \TEST_INTERCEPT());
@@ -26,7 +26,7 @@ class TEST extends \T
         echo 'TEST';
         $this->__onLeaveInstanceMethod('test');
     }
-    #[\Cwola\Interceptor\Attribute\DoNotIntercept]
+    #[\Cwola\MethodInterceptor\Attribute\DoNotIntercept]
     public function test2()
     {
         echo 'TEST2';
@@ -71,7 +71,7 @@ class TEST extends \T
         return '';
     }
 }
-class TEST_INTERCEPT implements \Cwola\Interceptor\Visitor\Interceptor
+class TEST_INTERCEPT implements \Cwola\MethodInterceptor\Visitor\Interceptor
 {
     public function enterMethod(string $name, ...$args) : void
     {

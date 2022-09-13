@@ -1,6 +1,6 @@
 {
-    "name": "cwola/interceptor",
-    "description": "Intercept class method(Cwola library).",
+    "name": "cwola/method-interceptor",
+    "description": "Intercept class method.",
     "type": "library",
     "keywords": [
       "php",
@@ -13,7 +13,7 @@
             "name": "r-jimbo"
         }
     ],
-    "homepage": "https://github.com/cwola/interceptor",
+    "homepage": "https://github.com/cwola/method-interceptor",
     "require": {
       "php": "^8.0",
       "nikic/php-parser": "^4.0",
@@ -24,7 +24,7 @@
             "src/helpers.php"
         ],
         "psr-4": {
-            "Cwola\\Interceptor\\": "src/"
+            "Cwola\\MethodInterceptor\\": "src/"
         }
     }
 }

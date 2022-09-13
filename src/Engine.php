@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cwola\Interceptor;
+namespace Cwola\MethodInterceptor;
 
 use LogicException;
 use RuntimeException;
@@ -87,6 +87,7 @@ class Engine {
         if (($compiled = \applyMethodIntercept($path)) === false) {
             throw new RuntimeException('failed: apply intercept.');
         }
+        file_put_contents(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . basename($path) . '.compiled', $compiled);
         return $compiled;
     }
 }

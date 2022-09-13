@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cwola\Interceptor\Compiler;
+namespace Cwola\MethodInterceptor\Compiler;
 
 use Exception;
 use RuntimeException;
@@ -14,8 +14,7 @@ use PhpParser\NodeFinder;
 use PhpParser\BuilderFactory;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\PrettyPrinter\Standard as PrettyPrinter;
-use Cwola\Interceptor\Attribute;
-use Cwola\Interceptor\Interceptable;
+use Cwola\MethodInterceptor\Attribute;
 
 
 class Handler {

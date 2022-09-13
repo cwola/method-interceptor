@@ -1,27 +1,23 @@
-# Interceptor
+# MethodInterceptor
 
 **Experimental: This is an experimental version.**
 
-Providing Intercepter for PHP(Cwola library).
-
-## Requirement
-- PHP ^8.0 (PHP8.0 to PHP8.1)
-- [nikic/php-parser](https://github.com/nikic/PHP-Parser) ^4.0
+Intercept class method.
 
 ## Installation
 ```
-composer require cwola/interceptor
+composer require cwola/method-interceptor
 ```
 
 ## Usage
 ```
 <?php
 
-use Cwola\Interceptor;
+use Cwola\MethodInterceptor;
 
-#[Interceptor\Attribute\Interceptable]
+#[MethodInterceptor\Attribute\Interceptable]
 class Foo {
-    use Interceptor\UseIntercept;
+    use MethodInterceptor\UseIntercept;
 
     public function __construct() {
         $this->__addInterceptor(new InterceptTimer);
@@ -39,7 +35,7 @@ class Foo {
         );
     }
 
-    #[Interceptor\Attribute\DoNotIntercept]
+    #[MethodInterceptor\Attribute\DoNotIntercept]
     protected function bold(string $message) :string {
         return '**' . $message . '**';
     }
@@ -49,7 +45,7 @@ class Foo {
     }
 }
 
-class InterceptTimer implements Interceptor\Visitor\Interceptor {
+class InterceptTimer implements MethodInterceptor\Visitor\Interceptor {
     protected array $timers = [];
 
     public function enterMethod(string $name, ...$args) :void {
@@ -61,7 +57,7 @@ class InterceptTimer implements Interceptor\Visitor\Interceptor {
     }
 }
 
-class InterceptGreet implements Interceptor\Visitor\Interceptor {
+class InterceptGreet implements MethodInterceptor\Visitor\Interceptor {
     public function enterMethod(string $name, ...$args) :void {
         echo 'ENTER : ' . $name . PHP_EOL;
     }
@@ -90,4 +86,4 @@ $foo->run();
 
 ## Licence
 
-[MIT](https://github.com/cwola/interceptor/blob/main/LICENSE)
+[MIT](https://github.com/cwola/method-interceptor/blob/main/LICENSE)

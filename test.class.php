@@ -2,18 +2,18 @@
 
 require __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
-use Cwola\Interceptor;
+use Cwola\MethodInterceptor;
 
-#[Interceptor\Attribute\Interceptable]
+#[MethodInterceptor\Attribute\Interceptable]
 abstract class T {
     public function test() {
         echo 'T';
     }
 }
 
-#[Interceptor\Attribute\Interceptable]
+#[MethodInterceptor\Attribute\Interceptable]
 class TEST extends T {
-    use Interceptor\UseIntercept;
+    use MethodInterceptor\UseIntercept;
 
     public function __construct() {
         $this->__addInterceptor(new TEST_INTERCEPT);
@@ -23,7 +23,7 @@ class TEST extends T {
         echo 'TEST';
     }
 
-    #[Interceptor\Attribute\DoNotIntercept]
+    #[MethodInterceptor\Attribute\DoNotIntercept]
     public function test2() {
         echo 'TEST2';
     }
@@ -56,7 +56,7 @@ class TEST extends T {
     }
 }
 
-class TEST_INTERCEPT implements Interceptor\Visitor\Interceptor {
+class TEST_INTERCEPT implements MethodInterceptor\Visitor\Interceptor {
     public function enterMethod(string $name, ...$args): void {
         echo '[ENTER] ' . $name . PHP_EOL;
     }

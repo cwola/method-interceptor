@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cwola\Interceptor\Attribute;
+namespace Cwola\MethodInterceptor\Attribute;
 
 use Attribute;
 

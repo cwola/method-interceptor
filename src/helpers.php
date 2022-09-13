@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Cwola\Interceptor\Engine;
-use Cwola\Interceptor\Applier\Handler as Applier;
+use Cwola\MethodInterceptor\Engine;
+use Cwola\MethodInterceptor\Applier\Handler as Applier;
 
 if (!function_exists('applyMethodIntercept')) {
     /**

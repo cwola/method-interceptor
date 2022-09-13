@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Cwola\Interceptor;
+namespace Cwola\MethodInterceptor;
 
 trait UseIntercept {
 
     /**
-     * @var \Cwola\Interceptor\Visitor\Interceptor[]
+     * @var \Cwola\MethodInterceptor\Visitor\Interceptor[]
      */
     protected static array $__staticInterceptors = [];
 
     /**
-     * @var \Cwola\Interceptor\Visitor\Interceptor[]
+     * @var \Cwola\MethodInterceptor\Visitor\Interceptor[]
      */
     protected array $__instanceInterceptors = [];
 
 
     /**
-     * @param \Cwola\Interceptor\Visitor\Interceptor $interceptor
+     * @param \Cwola\MethodInterceptor\Visitor\Interceptor $interceptor
      * @return void
      */
     #[Attribute\DoNotIntercept]
@@ -27,7 +27,7 @@ trait UseIntercept {
     }
 
     /**
-     * @param \Cwola\Interceptor\Visitor\Interceptor $interceptor
+     * @param \Cwola\MethodInterceptor\Visitor\Interceptor $interceptor
      * @return void
      */
     #[Attribute\DoNotIntercept]
@@ -36,7 +36,7 @@ trait UseIntercept {
     }
 
     /**
-     * @param \Cwola\Interceptor\Visitor\Interceptor $interceptor
+     * @param \Cwola\MethodInterceptor\Visitor\Interceptor $interceptor
      * @return static
      */
     #[Attribute\DoNotIntercept]
