@@ -55,9 +55,9 @@ class Handler {
 
     /**
      * @param void
-     * @return string|null|false
+     * @return string|false
      */
-    public function compile() :string|null|false {
+    public function compile() :string|false {
         $this->error = '';
         if (($parser = $this->createParser()) === false) {
             return false;
@@ -66,6 +66,9 @@ class Handler {
             return false;
         }
         $targetClasses = $this->findByStatement($ast, [$this, 'isInterceptTargetClass']);
+        if (\count($targetClasses) < 1) {
+            return $this->source;
+        }
         foreach ($targetClasses as $class) {
             if (!$this->applyIntercept($class)) {
                 return false;
