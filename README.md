@@ -10,8 +10,11 @@ composer require cwola/method-interceptor
 ```
 
 ## Usage
+`Interceptor.php`
 ```
 <?php
+
+// include autoloader...
 
 use Cwola\MethodInterceptor;
 
@@ -73,11 +76,18 @@ class FilterRunOnly implements MethodInterceptor\Contracts\Filter {
     }
 }
 
+```
+
+`test.php`
+```
+<?php
+
+// include autoloader...
+
 $foo = new Foo;
 
 $foo->run();
 // output:
-/* Private methods cannot be intercepted. */
 //
 // [ENTER] : run
 // [ENTER] : message
